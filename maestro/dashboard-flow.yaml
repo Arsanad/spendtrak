@@ -1,0 +1,89 @@
+# SpendTrak E2E Test: Dashboard Flow
+# Tests dashboard loading, navigation, and interactions
+
+appId: com.spendtrak.app
+
+---
+# Test: Dashboard Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Verify dashboard is displayed (assuming user is authenticated)
+- assertVisible:
+    text: "Good"
+    optional: true
+
+# Check for greeting with time-based message
+- assertVisible:
+    text: "morning|afternoon|evening"
+
+    optional: true
+
+# Verify summary card is visible
+- assertVisible:
+    id: "summary-card"
+    optional: true
+
+# Verify quick actions are visible
+- assertVisible:
+    text: "Scan Receipt"
+    optional: true
+
+- assertVisible:
+    text: "Add Expense"
+    optional: true
+
+- assertVisible:
+    text: "Card Optimizer"
+    optional: true
+
+# Test pull to refresh
+- scroll:
+    direction: DOWN
+    duration: 500
+
+- waitForAnimationToEnd
+
+# Tap on AI Consultant button
+- tapOn:
+    text: "🤖"
+    optional: true
+
+# Verify AI Consultant modal opens
+- assertVisible:
+    text: "AI Consultant"
+    optional: true
+
+# Close AI Consultant
+- tapOn:
+    text: "✕"
+    optional: true
+
+# Wait for modal to close
+- waitForAnimationToEnd
+
+# Navigate to subscriptions from dashboard
+- tapOn:
+    text: "Subscriptions"
+    optional: true
+
+# Verify subscriptions screen
+- assertVisible:
+    text: "/month"
+    optional: true
+
+# Go back to dashboard
+- back
+
+# Tap on View all alerts
+- tapOn:
+    text: "View all"
+    optional: true
+
+# Verify alerts screen
+- assertVisible:
+    text: "Alerts"
+    optional: true

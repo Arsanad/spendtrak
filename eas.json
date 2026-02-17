@@ -1,0 +1,62 @@
+{
+  "cli": {
+    "version": ">= 5.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      },
+      "env": {
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true",
+        "APP_VARIANT": "development"
+      }
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk",
+        "credentialsSource": "local"
+      },
+      "ios": {
+        "simulator": false
+      },
+      "distribution": "internal",
+      "env": {
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true",
+        "SENTRY_DISABLE_AUTO_UPLOAD": "true",
+        "APP_VARIANT": "preview"
+      },
+      "autoIncrement": false
+    },
+    "production": {
+      "ios": {
+        "distribution": "store",
+        "credentialsSource": "remote"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true",
+        "APP_VARIANT": "production",
+        "APP_ENV": "production"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "ab.sanad17@icloud.com",
+        "ascAppId": "6758563102",
+        "appleTeamId": "NHT4RV54Z7"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "internal"
+      }
+    }
+  }
+}

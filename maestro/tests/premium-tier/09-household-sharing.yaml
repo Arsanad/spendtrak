@@ -1,0 +1,182 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Household Sharing Tests (131-140)"
+tags: [premium, household]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Household
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Household|Family"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 131: Create Household - Create new household
+- tapOn:
+    text: "Create Household|Create|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "household-name-input"
+    optional: true
+- inputText: "My Family"
+- tapOn:
+    text: "Create|Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "My Family"
+    optional: true
+
+# Test 132: Invite Member - Send invitation email
+- tapOn:
+    text: "Invite|Add Member"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "invite-email-input"
+    optional: true
+- inputText: "partner@example.com"
+- tapOn:
+    text: "Send Invite|Invite"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Invitation sent|Invited"
+    optional: true
+
+# Test 133: Accept Invite - Join household via code
+- assertVisible:
+    text: "Code|Join"
+    optional: true
+
+# Test 134: View Members - See household members
+- assertVisible:
+    text: "Members"
+    optional: true
+
+# Test 135: Shared Budget - Create shared budget
+- tapOn:
+    text: "Budgets|Shared Budget"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Add|Create|\\+"
+    optional: true
+- tapOn:
+    text: "Shared"
+    optional: true
+- tapOn:
+    id: "budget-category-input"
+    optional: true
+- tapOn:
+    text: "Groceries"
+    optional: true
+- tapOn:
+    id: "budget-amount-input"
+    optional: true
+- inputText: "800"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 136: Shared Goal - Create shared goal
+- tapOn:
+    text: "Goals|Shared Goal"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Add|Create|\\+"
+    optional: true
+- tapOn:
+    id: "goal-name-input"
+    optional: true
+- inputText: "Vacation Fund"
+- tapOn:
+    id: "goal-amount-input"
+    optional: true
+- inputText: "5000"
+- tapOn:
+    text: "Shared"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 137: Assign Transaction - Assign expense to member
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- tapOn:
+    text: "Assign|Member"
+    optional: true
+- tapOn:
+    text: "Partner"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 138: Member Spending - See who spent what
+- tapOn:
+    text: "Household|Family"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Spending|By Member"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Member|Spending"
+    optional: true
+
+# Test 139: Hide Transaction - Hide from partner
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- tapOn:
+    text: "Hide|Private"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+# Test 140: Remove Member - Remove from household
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Household"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Members"
+    optional: true
+- tapOn:
+    text: "Remove|Delete"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+- takeScreenshot: "household-complete"

@@ -1,0 +1,64 @@
+# SpendTrak E2E Test: Authentication Flow
+# Tests sign-in, sign-out, and auth state persistence
+
+appId: com.spendtrak.app
+
+---
+# Test: Authentication Flow
+
+- launchApp:
+    clearState: true
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Verify welcome screen is shown for unauthenticated users
+- assertVisible: "Welcome to SpendTrak"
+
+# Test Google Sign In button is visible
+- assertVisible: "Continue with Google"
+
+# Test Microsoft Sign In button is visible
+- assertVisible: "Continue with Microsoft"
+
+# Tap on Google Sign In (will open OAuth flow)
+- tapOn: "Continue with Google"
+
+# Wait for OAuth redirect (in test mode, this should auto-complete)
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# After successful auth, should see dashboard
+- assertVisible:
+    text: "Good"
+    optional: true
+
+# Verify dashboard elements
+- assertVisible:
+    id: "dashboard-summary"
+    optional: true
+
+# Navigate to Settings to test sign out
+- tapOn:
+    id: "tab-settings"
+    optional: true
+
+# Verify settings screen
+- assertVisible:
+    text: "Settings"
+    optional: true
+
+# Find and tap sign out button
+- tapOn:
+    text: "Sign Out"
+    optional: true
+
+# Confirm sign out
+- tapOn:
+    text: "Yes, Sign Out"
+    optional: true
+
+# Verify returned to welcome screen
+- assertVisible:
+    text: "Welcome to SpendTrak"
+    optional: true

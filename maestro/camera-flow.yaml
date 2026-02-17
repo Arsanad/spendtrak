@@ -1,0 +1,137 @@
+# SpendTrak E2E Test: Camera/Receipt Scanning Flow
+# Tests receipt capture and OCR processing
+
+appId: com.spendtrak.app
+
+---
+# Test: Camera/Receipt Scanning Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Navigate to camera from dashboard
+- tapOn:
+    text: "Scan Receipt"
+    optional: true
+
+# Wait for camera to load
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Verify camera screen is displayed
+- assertVisible:
+    text: "Scan Receipt"
+    optional: true
+
+# Check for camera permission prompt (will auto-grant in test mode)
+- assertVisible:
+    text: "Camera"
+    optional: true
+
+# Verify capture button is visible
+- assertVisible:
+    id: "capture-button"
+    optional: true
+
+# Verify gallery button is visible
+- assertVisible:
+    id: "gallery-button"
+    optional: true
+
+# Test gallery picker
+- tapOn:
+    id: "gallery-button"
+    optional: true
+
+# Wait for gallery to open
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Select an image (in test mode, will use mock image)
+- tapOn:
+    id: "image-0"
+    optional: true
+
+# Wait for OCR processing
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Verify OCR results screen
+- assertVisible:
+    text: "Review Receipt"
+    optional: true
+
+# Verify extracted data fields
+- assertVisible:
+    text: "Merchant"
+    optional: true
+
+- assertVisible:
+    text: "Amount"
+    optional: true
+
+- assertVisible:
+    text: "Date"
+    optional: true
+
+# Edit merchant name if needed
+- tapOn:
+    id: "input-merchant"
+    optional: true
+
+- eraseText
+
+- inputText: "Grocery Store"
+
+# Confirm and save
+- tapOn:
+    text: "Save Transaction"
+    optional: true
+
+# Wait for save
+- waitForAnimationToEnd
+
+# Verify success message
+- assertVisible:
+    text: "Transaction saved"
+    optional: true
+
+# Verify returned to dashboard
+- assertVisible:
+    text: "Good"
+    optional: true
+
+# Scan another receipt
+- tapOn:
+    text: "Scan Receipt"
+    optional: true
+
+# Take a photo with camera
+- tapOn:
+    id: "capture-button"
+    optional: true
+
+# Wait for capture
+- waitForAnimationToEnd
+
+# Verify preview is shown
+- assertVisible:
+    text: "Preview"
+    optional: true
+
+# Retake option
+- tapOn:
+    text: "Retake"
+    optional: true
+
+# Cancel and go back
+- tapOn:
+    text: "Cancel"
+    optional: true
+
+# Verify returned to dashboard
+- assertVisible:
+    text: "Good"
+    optional: true

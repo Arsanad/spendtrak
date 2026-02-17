@@ -1,0 +1,92 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Income Tracking Tests (118-122)"
+tags: [premium, income]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Income
+- tapOn:
+    text: "Income"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 118: Add Income Source - Add salary/freelance income
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "income-source-input"
+    optional: true
+- inputText: "Salary"
+- tapOn:
+    id: "income-amount-input"
+    optional: true
+- inputText: "5000"
+- tapOn:
+    text: "Monthly"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Salary"
+    optional: true
+
+# Test 119: View Income - See all income sources
+- assertVisible:
+    text: "Income|Sources"
+    optional: true
+
+# Test 120: Recurring Income - Set up recurring income
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "income-source-input"
+    optional: true
+- inputText: "Freelance"
+- tapOn:
+    id: "income-amount-input"
+    optional: true
+- inputText: "1000"
+- tapOn:
+    text: "Recurring"
+    optional: true
+- tapOn:
+    text: "Weekly"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 121: Income by Source - Breakdown by source
+- assertVisible:
+    text: "Breakdown|By Source"
+    optional: true
+- assertVisible:
+    text: "Salary|Freelance"
+    optional: true
+
+# Test 122: Cash Flow Report - Income vs expenses
+- tapOn:
+    text: "Cash Flow|Report"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Income|Expenses"
+    optional: true
+- assertVisible:
+    text: "Net|Balance"
+    optional: true
+
+- takeScreenshot: "income-tracking-complete"

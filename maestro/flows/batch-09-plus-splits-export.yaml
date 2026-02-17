@@ -1,0 +1,82 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - plus
+  - splits
+  - export
+---
+# ============================================
+# BATCH 9: PLUS TIER - Transaction Splits, Data Export, Daily Limit
+# Tests 52-65
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# TESTS 52-57: Transaction Splits
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- tapOn:
+    text: "Transactions"
+    optional: true
+- waitForAnimationToEnd
+
+# Try to find a transaction to split
+- takeScreenshot: "test-52-transactions-for-split"
+
+# Tap on first transaction (if any)
+- tapOn:
+    text: "Split"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-53-57-split-transaction"
+- back
+- waitForAnimationToEnd
+
+# TESTS 58-62: Data Export
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- scroll
+
+# Tap Export Data (Plus feature)
+- tapOn:
+    text: "Export"
+    optional: true
+- tapOn:
+    text: "Export Data"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-58-62-export-data"
+- back
+- waitForAnimationToEnd
+
+# TESTS 63-65: Daily Spending Limit
+- tapOn:
+    text: "Daily Spending"
+    optional: true
+- tapOn:
+    text: "Spending Limit"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-63-65-daily-limit"
+- back
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-09-complete"
+

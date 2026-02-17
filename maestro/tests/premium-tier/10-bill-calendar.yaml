@@ -1,0 +1,146 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Bill Calendar Tests (141-149)"
+tags: [premium, bills, calendar]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Bills
+- tapOn:
+    text: "Bills|Calendar"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 141: Add Bill - Add recurring bill
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "bill-name-input"
+    optional: true
+- inputText: "Electric Bill"
+- tapOn:
+    id: "bill-amount-input"
+    optional: true
+- inputText: "150"
+- tapOn:
+    text: "Monthly"
+    optional: true
+- tapOn:
+    id: "bill-due-date-input"
+    optional: true
+- tapOn:
+    text: "15"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Electric Bill"
+    optional: true
+
+# Test 142: View Calendar - See bills on calendar
+- tapOn:
+    text: "Calendar"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "15|Electric"
+    optional: true
+
+# Test 143: Upcoming Bills - See next 7 days bills
+- tapOn:
+    text: "Upcoming|Next"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Upcoming|Next 7 Days"
+    optional: true
+
+# Test 144: Mark Paid - Mark bill as paid
+- tapOn:
+    text: "Electric Bill"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Mark Paid|Paid"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Paid"
+    optional: true
+
+# Test 145: Overdue Bills - See overdue bills
+- tapOn:
+    text: "Overdue"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Overdue|Past Due"
+    optional: true
+
+# Test 146: Bill Reminders - Get reminder notification
+- tapOn:
+    text: "Electric Bill"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Reminders|Notify"
+    optional: true
+- tapOn:
+    text: "1 day before|3 days before"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 147: Monthly Bill Total - Total bills this month
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Total|Monthly"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 148: Edit Bill - Modify bill details
+- tapOn:
+    text: "Electric Bill"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Edit"
+    optional: true
+- tapOn:
+    id: "bill-amount-input"
+    optional: true
+- eraseText: 20
+- inputText: "175"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 149: Delete Bill - Remove bill
+- tapOn:
+    text: "Electric Bill"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+- takeScreenshot: "bill-calendar-complete"

@@ -1,0 +1,66 @@
+appId: com.spendtrak.app
+name: Settings Tests
+tags: [settings, profile]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Settings Tab
+- tapOn:
+    id: "tab-settings"
+- waitForAnimationToEnd
+- takeScreenshot: "17-settings-tab"
+
+# Test 9.1: Settings Screen
+- assertVisible:
+    id: "settings-screen"
+
+# Test 9.2: Profile Section
+- assertVisible:
+    text: "Profile"
+    optional: true
+
+# Test 9.3: Notifications Toggle
+- assertVisible:
+    text: "Notifications"
+    optional: true
+
+# Test 9.4: Connected Accounts
+- assertVisible:
+    text: "Connected"
+    optional: true
+
+# Test 9.5: Budgets Link
+- assertVisible:
+    text: "Budgets"
+    optional: true
+
+# Test 9.6: Goals Link
+- assertVisible:
+    text: "Goals"
+    optional: true
+
+# Test 9.7: Cards Link
+- assertVisible:
+    text: "Cards"
+    optional: true
+
+# Test 9.8: Help/Support
+- scroll
+- assertVisible:
+    text: "Help"
+    optional: true
+
+# Test 9.9: App Version
+- assertVisible:
+    text: "Version"
+    optional: true
+
+# Test 9.10: Sign Out
+- assertVisible:
+    text: "Sign Out"
+    optional: true
+- takeScreenshot: "18-settings-full"

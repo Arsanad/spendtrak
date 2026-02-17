@@ -1,0 +1,124 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - premium
+  - networth
+  - household
+---
+# ============================================
+# BATCH 14: PREMIUM TIER - Net Worth, Household Sharing
+# Tests 123-140
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- scroll
+
+# TESTS 123-130: Net Worth Tracking
+- tapOn:
+    text: "Net Worth"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-123-view-networth"
+
+# Add asset
+- tapOn:
+    text: "Add Asset"
+    optional: true
+- tapOn:
+    text: "Assets"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Savings Account"
+- inputText: "10000"
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-124-127-assets"
+
+# Add liability
+- tapOn:
+    text: "Add Liability"
+    optional: true
+- tapOn:
+    text: "Liabilities"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Car Loan"
+- inputText: "15000"
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-128-130-liabilities"
+- back
+- waitForAnimationToEnd
+
+# TESTS 131-140: Household Sharing
+- tapOn:
+    text: "Household"
+    optional: true
+- tapOn:
+    text: "Family"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-131-view-household"
+
+# Create household
+- tapOn:
+    text: "Create"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "My Family"
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-132-136-household-create"
+
+# Invite member
+- tapOn:
+    text: "Invite"
+    optional: true
+- tapOn:
+    text: "Add Member"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-137-140-household-invite"
+- tapOn:
+    text: "Cancel"
+    optional: true
+- back
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-14-complete"
+

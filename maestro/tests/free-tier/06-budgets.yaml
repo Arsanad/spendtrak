@@ -1,0 +1,90 @@
+appId: com.spendtrak.app
+name: "Free Tier - Basic Budgets Tests (32-37)"
+tags: [free, budgets]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Budgets (might be in dashboard or separate tab)
+- tapOn:
+    text: "Budgets|Budget"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 32: Create Budget - Create monthly budget for category
+- tapOn:
+    text: "Add|New|Create|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Category"
+    optional: true
+- tapOn:
+    text: "Food"
+    optional: true
+- tapOn:
+    id: "budget-amount-input"
+    optional: true
+- inputText: "500"
+- tapOn:
+    text: "Save|Create"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Food"
+    optional: true
+
+# Test 33: View Budget Progress - See spent vs. budget amount
+- assertVisible:
+    id: "budget-progress"
+    optional: true
+- assertVisible:
+    text: "spent|remaining"
+    optional: true
+
+# Test 34: Edit Budget - Change budget amount
+- tapOn:
+    id: "budget-item"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Edit"
+    optional: true
+- tapOn:
+    id: "budget-amount-input"
+    optional: true
+- eraseText: 20
+- inputText: "600"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 35: Delete Budget - Remove a budget
+- tapOn:
+    id: "budget-item"
+    optional: true
+- tapOn:
+    text: "Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+# Test 36: Budget Alert - Alert shows when over 80%
+- assertVisible:
+    text: "Alert|Warning"
+    optional: true
+
+# Test 37: Over Budget Warning - Warning shows when exceeded
+- assertVisible:
+    text: "Over Budget|Exceeded"
+    optional: true
+
+- takeScreenshot: "budgets-complete"

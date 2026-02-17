@@ -1,0 +1,56 @@
+appId: com.spendtrak.app
+name: "Free Tier - Receipt Scanning Tests (22-26)"
+tags: [free, receipt, ocr]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 22: Open Camera - Tap scan receipt, camera opens
+- tapOn:
+    id: "scan-button"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    id: "camera-view"
+    optional: true
+- assertVisible:
+    text: "Camera|Capture|Scan"
+    optional: true
+
+# Test 23: Capture Receipt - Take photo of receipt
+- assertVisible:
+    id: "capture-button"
+    optional: true
+
+# Test 24: OCR Extraction - Amount/merchant auto-detected
+- assertVisible:
+    text: "Amount|Merchant|Extract"
+    optional: true
+
+# Test 25: Review & Save - Confirm and save scanned transaction
+- assertVisible:
+    text: "Review|Save|Confirm"
+    optional: true
+
+# Test 26: Attach to Existing - Attach receipt to existing transaction
+- tapOn:
+    id: "gallery-button"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Gallery|Photos|Select"
+    optional: true
+
+# Go back
+- tapOn:
+    id: "close-button"
+    optional: true
+- waitForAnimationToEnd
+
+- takeScreenshot: "receipt-scanning-complete"

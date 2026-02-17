@@ -1,0 +1,29 @@
+appId: com.spendtrak.app
+---
+# Helper: Dev Login for automated testing
+
+- launchApp:
+    clearState: true
+
+# Wait for app to fully load
+- waitForAnimationToEnd:
+    timeout: 15000
+
+# Tap Get Started button if visible
+- tapOn:
+    text: "GET STARTED"
+    optional: true
+- waitForAnimationToEnd
+
+# Wait for Sign In screen
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Tap Dev Sign In button using coordinates (it's at approximately 50% width, ~65% height)
+# Screen appears to be 720x1600 based on Samsung Galaxy A03 specs
+- tapOn:
+    point: "50%,68%"
+- waitForAnimationToEnd:
+    timeout: 10000
+
+- takeScreenshot: "dev-login-complete"

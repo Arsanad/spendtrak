@@ -1,0 +1,161 @@
+# SpendTrak E2E Test: Settings Flow
+# Tests settings screen, preferences, and account management
+
+appId: com.spendtrak.app
+
+---
+# Test: Settings Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Navigate to Settings tab
+- tapOn:
+    id: "tab-settings"
+    optional: true
+
+# Wait for settings to load
+- waitForAnimationToEnd
+
+# Verify settings screen
+- assertVisible:
+    text: "Settings"
+    optional: true
+
+# Verify profile section
+- assertVisible:
+    text: "Profile"
+    optional: true
+
+# Edit profile
+- tapOn:
+    text: "Edit Profile"
+    optional: true
+
+# Verify profile edit screen
+- assertVisible:
+    text: "Edit Profile"
+    optional: true
+
+# Change name
+- tapOn:
+    id: "input-name"
+    optional: true
+
+- eraseText
+
+- inputText: "John Doe"
+
+# Save profile
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Wait for save
+- waitForAnimationToEnd
+
+# Go back to settings
+- back
+
+# Test currency selection
+- tapOn:
+    text: "Currency"
+    optional: true
+
+# Select a currency
+- tapOn:
+    text: "USD"
+    optional: true
+
+# Test notification settings
+- tapOn:
+    text: "Notifications"
+    optional: true
+
+# Toggle push notifications
+- tapOn:
+    id: "toggle-push"
+    optional: true
+
+# Toggle email notifications
+- tapOn:
+    id: "toggle-email"
+    optional: true
+
+# Go back
+- back
+
+# Test email connections
+- tapOn:
+    text: "Email Connections"
+    optional: true
+
+# Verify email connections screen
+- assertVisible:
+    text: "Connected Emails"
+    optional: true
+
+# Add email connection
+- tapOn:
+    text: "Connect Email"
+    optional: true
+
+# Select Gmail
+- tapOn:
+    text: "Gmail"
+    optional: true
+
+# Wait for OAuth (will not complete in test mode)
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Go back to settings
+- back
+
+# Test data export
+- tapOn:
+    text: "Export Data"
+    optional: true
+
+# Confirm export
+- tapOn:
+    text: "Export"
+    optional: true
+
+# Wait for export
+- waitForAnimationToEnd
+
+# Test about section
+- scroll:
+    direction: UP
+    duration: 500
+
+- tapOn:
+    text: "About"
+    optional: true
+
+# Verify about screen
+- assertVisible:
+    text: "Version"
+    optional: true
+
+# Go back
+- back
+
+# Test privacy policy
+- tapOn:
+    text: "Privacy Policy"
+    optional: true
+
+# Go back
+- back
+
+# Test terms of service
+- tapOn:
+    text: "Terms of Service"
+    optional: true
+
+# Go back
+- back

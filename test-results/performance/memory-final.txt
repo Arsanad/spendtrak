@@ -1,0 +1,65 @@
+Applications Memory Usage (in Kilobytes):
+Uptime: 244880841 Realtime: 854425339
+
+** MEMINFO in pid 7760 [host.exp.exponent] **
+                   Pss  Private  Private  SwapPss      Rss     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty    Total     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------   ------
+  Native Heap   205247   205228        0   217841   205736   465560   444306    21253
+  Dalvik Heap    32980    32780        0      341    34244    35542    17771    17771
+ Dalvik Other     4293     4048        0      229     5292                           
+        Stack     2104     2104        0     2220     2112                           
+       Ashmem       22       16        0        0       48                           
+    Other dev       12        0        8        0      264                           
+     .so mmap     4225      184      136      137    36160                           
+    .jar mmap     1998        0      332        0    23028                           
+    .apk mmap    22319      500    21092      984    24560                           
+    .ttf mmap      263        0      212        0      332                           
+    .dex mmap    10930       24    10892       16    11484                           
+    .oat mmap     1060        0       68        0    17128                           
+    .art mmap    14160    13420      104     4241    24656                           
+   Other mmap      173        8      128        0     1152                           
+    GL mtrack    76936    76936        0        0    76936                           
+      Unknown    86514    86496        0     2824    86740                           
+        TOTAL   692069   421744    32972   228833   549872   501102   462077    39024
+ 
+ App Summary
+                       Pss(KB)                        Rss(KB)
+                        ------                         ------
+           Java Heap:    46304                          58900
+         Native Heap:   205228                         205736
+                Code:    33444                         113128
+               Stack:     2104                           2112
+            Graphics:    76936                          76936
+       Private Other:    90700
+              System:   237353
+             Unknown:                                   93060
+ 
+           TOTAL PSS:   692069            TOTAL RSS:   549872       TOTAL SWAP PSS:   228833
+ 
+ Objects
+               Views:     1469         ViewRootImpl:        2
+         AppContexts:       18           Activities:        2
+              Assets:       35        AssetManagers:        0
+       Local Binders:       62        Proxy Binders:       58
+       Parcel memory:       36         Parcel count:      110
+    Death Recipients:        2      OpenSSL Sockets:        0
+            WebViews:        0
+ 
+ SQL
+         MEMORY_USED:     1200
+  PAGECACHE_OVERFLOW:      447          MALLOC_SIZE:       46
+ 
+ DATABASES
+      pgsz     dbsz   Lookaside(b)          cache  Dbname
+         4       24             36        12/38/3  /data/user/0/host.exp.exponent/databases/RKStorage-scoped-experience-%40exponent%2Fhome
+         4       56            124     260/129/21  /data/user/0/host.exp.exponent/databases/com.google.android.datatransport.events
+         4       68             36       128/46/3  /data/user/0/host.exp.exponent/databases/RKStorage-scoped-experience-%40absanad.aivi%2Fspendtrak
+         4      112            123       23/81/14  /data/user/0/host.exp.exponent/databases/updates.db
+         4        8                         0/0/0    (attached) temp
+         4      112             95        14/25/4  /data/user/0/host.exp.exponent/databases/updates.db (2)
+         4      104            124        9/66/11  /data/user/0/host.exp.exponent/no_backup/androidx.work.workdb
+         4        8                         0/0/0    (attached) temp
+         4      104             25         4/23/2  /data/user/0/host.exp.exponent/no_backup/androidx.work.workdb (2)
+         4       32             53        12/34/5  /data/user/0/host.exp.exponent/databases/exoplayer_internal.db
+         4       32             42         2/33/4  /data/user/0/host.exp.exponent/databases/ExponentKernel.db

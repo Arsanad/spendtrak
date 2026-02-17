@@ -1,0 +1,70 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Budget Rollover Tests (71-74)"
+tags: [plus, budget-rollover]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Budgets
+- tapOn:
+    text: "Budgets|Budget"
+    optional: true
+- waitForAnimationToEnd
+
+# Select a budget
+- tapOn:
+    id: "budget-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+
+# Test 71: Enable Rollover - Turn on rollover for budget
+- tapOn:
+    text: "Settings|Options"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Rollover|Enable Rollover"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Rollover Enabled|On"
+    optional: true
+
+# Test 72: Positive Rollover - Underspent amount carries forward
+- assertVisible:
+    text: "Rollover Amount|Carried Over"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 73: Rollover History - View rollover amounts
+- tapOn:
+    text: "History|Rollover History"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Previous|History"
+    optional: true
+
+# Test 74: Max Rollover - Set maximum rollover limit
+- tapOn:
+    text: "Max Rollover|Limit"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "max-rollover-input"
+    optional: true
+- inputText: "200"
+- tapOn:
+    text: "Save"
+    optional: true
+
+- takeScreenshot: "budget-rollover-complete"

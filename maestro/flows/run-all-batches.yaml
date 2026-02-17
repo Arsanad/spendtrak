@@ -1,0 +1,58 @@
+appId: com.spendtrak.app
+name: "SpendTrak Complete 180 Test Suite - Batched"
+tags: [full, regression, all, batched]
+---
+# ============================================
+# MASTER TEST RUNNER - 16 BATCHED FILES
+# Covers all 180 tests efficiently
+# ============================================
+
+# BATCH 1: Authentication (Tests 1-6)
+# Clears state and performs Dev Sign In
+- runFlow: "batch-01-auth.yaml"
+
+# BATCH 2: Dashboard (Tests 7-11)
+- runFlow: "batch-02-dashboard.yaml"
+
+# BATCH 3: Transactions (Tests 12-21)
+- runFlow: "batch-03-transactions.yaml"
+
+# BATCH 4: Receipt Scanning (Tests 22-26)
+- runFlow: "batch-04-receipt-scanning.yaml"
+
+# BATCH 5: Categories (Tests 27-31)
+- runFlow: "batch-05-categories.yaml"
+
+# BATCH 6: Budgets (Tests 32-37)
+- runFlow: "batch-06-budgets.yaml"
+
+# BATCH 7: Goals (Tests 38-42)
+- runFlow: "batch-07-goals.yaml"
+
+# BATCH 8: Settings (Tests 43-51)
+- runFlow: "batch-08-settings.yaml"
+
+# BATCH 9: Plus Tier - Splits & Export (Tests 52-65)
+- runFlow: "batch-09-plus-splits-export.yaml"
+
+# BATCH 10: Plus Tier - Subscriptions & Alerts (Tests 66-86)
+- runFlow: "batch-10-plus-subscriptions-alerts.yaml"
+
+# BATCH 11: Premium - AI Consultant (Tests 87-95)
+- runFlow: "batch-11-premium-ai.yaml"
+
+# BATCH 12: Premium - Cards & Rewards (Tests 96-108)
+- runFlow: "batch-12-premium-cards.yaml"
+
+# BATCH 13: Premium - Debt & Income (Tests 109-122)
+- runFlow: "batch-13-premium-debt-income.yaml"
+
+# BATCH 14: Premium - Net Worth & Household (Tests 123-140)
+- runFlow: "batch-14-premium-networth-household.yaml"
+
+# BATCH 15: Premium - Bills & ZBB (Tests 141-156)
+- runFlow: "batch-15-premium-bills-zbb.yaml"
+
+# BATCH 16: Premium - Investments & Gamification (Tests 157-180)
+- runFlow: "batch-16-premium-investments-gamification.yaml"
+

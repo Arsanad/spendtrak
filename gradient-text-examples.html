@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gradient Text Examples - Neon Green</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #050505;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      padding: 60px 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .text-container {
+      text-align: center;
+    }
+
+    .label {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    .label-ar {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      margin-bottom: 10px;
+      direction: rtl;
+    }
+
+    /* =============================================
+       1. LINEAR GRADIENT - تدرج خطي
+       ============================================= */
+    .gradient-linear {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(
+        135deg, 
+        #39FF14 0%,      /* Neon Green */
+        #7FFF00 50%,     /* Chartreuse */
+        #00FF7F 100%     /* Spring Green */
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 80px rgba(57, 255, 20, 0.3);
+    }
+
+    /* =============================================
+       2. RADIAL GRADIENT - تدرج دائري
+       ============================================= */
+    .gradient-radial {
+      font-size: 4rem;
+      font-weight: 700;
+      background: radial-gradient(
+        circle at 30% 50%,
+        #7FFF00 0%,      /* Bright center */
+        #39FF14 40%,     /* Neon Green */
+        #228B22 80%,     /* Forest Green */
+        #0D4D0D 100%     /* Dark Green edge */
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 80px rgba(57, 255, 20, 0.3);
+    }
+
+    /* =============================================
+       3. ANIMATED SHIMMER GRADIENT - تدرج متحرك لامع
+       ============================================= */
+    .gradient-shimmer {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(
+        90deg,
+        #2ECC40 0%,      /* Emerald */
+        #39FF14 25%,     /* Neon Green */
+        #7FFF00 50%,     /* Chartreuse - bright center */
+        #39FF14 75%,     /* Neon Green */
+        #2ECC40 100%     /* Emerald */
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: shimmer 3s linear infinite;
+      text-shadow: 0 0 80px rgba(57, 255, 20, 0.3);
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* =============================================
+       BONUS: MORE VARIATIONS
+       ============================================= */
+    
+    /* 4. Vertical Gradient */
+    .gradient-vertical {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(
+        180deg,
+        #7FFF00 0%,      /* Light top */
+        #39FF14 50%,     /* Neon middle */
+        #145214 100%     /* Dark bottom */
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    /* 5. Multi-stop Luxury */
+    .gradient-luxury {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        #0D4D0D 0%,      /* Dark edge */
+        #228B22 20%,     /* Forest */
+        #39FF14 40%,     /* Neon */
+        #7FFF00 50%,     /* Bright center */
+        #39FF14 60%,     /* Neon */
+        #228B22 80%,     /* Forest */
+        #0D4D0D 100%     /* Dark edge */
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 60px rgba(57, 255, 20, 0.4);
+    }
+
+    /* 6. Metallic Green */
+    .gradient-metallic {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        #1a472a 0%,
+        #2d5a3d 15%,
+        #39FF14 30%,
+        #7FFF00 50%,
+        #39FF14 70%,
+        #2d5a3d 85%,
+        #1a472a 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(57, 255, 20, 0.3);
+    }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.3), transparent);
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. LINEAR GRADIENT -->
+  <div class="text-container">
+    <div class="label-ar">تدرج خطي</div>
+    <div class="label">Linear Gradient</div>
+    <h1 class="gradient-linear">SpendTrak</h1>
+  </div>
+
+  <!-- 2. RADIAL GRADIENT -->
+  <div class="text-container">
+    <div class="label-ar">تدرج دائري</div>
+    <div class="label">Radial Gradient</div>
+    <h1 class="gradient-radial">SpendTrak</h1>
+  </div>
+
+  <!-- 3. ANIMATED SHIMMER -->
+  <div class="text-container">
+    <div class="label-ar">تدرج متحرك لامع</div>
+    <div class="label">Animated Shimmer</div>
+    <h1 class="gradient-shimmer">SpendTrak</h1>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BONUS VARIATIONS -->
+  <div class="text-container">
+    <div class="label-ar">تدرج عمودي</div>
+    <div class="label">Vertical Gradient</div>
+    <h1 class="gradient-vertical">Premium</h1>
+  </div>
+
+  <div class="text-container">
+    <div class="label-ar">تدرج فاخر متعدد</div>
+    <div class="label">Multi-stop Luxury</div>
+    <h1 class="gradient-luxury">Wealth</h1>
+  </div>
+
+  <div class="text-container">
+    <div class="label-ar">تدرج معدني</div>
+    <div class="label">Metallic Green</div>
+    <h1 class="gradient-metallic">Finance</h1>
+  </div>
+
+</body>
+</html>

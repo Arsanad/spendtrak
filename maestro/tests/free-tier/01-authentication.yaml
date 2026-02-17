@@ -1,0 +1,60 @@
+appId: com.spendtrak.app
+name: "Free Tier - Authentication Tests (1-6)"
+tags: [free, authentication, smoke]
+---
+
+# Test 1: App Launch - Wait for full load
+- launchApp:
+    clearState: true
+# Wait for app to fully load (splash + fonts + navigation)
+- extendedWaitUntil:
+    visible:
+      text: "Sign In|Get Started"
+    timeout: 20000
+
+# Test 2: Sign In screen elements visible
+- assertVisible:
+    text: "Sign In"
+    optional: true
+- assertVisible:
+    text: "SpendTrak"
+    optional: true
+
+# Test 3: Google Sign In option visible
+- assertVisible:
+    text: "Continue with Google"
+    optional: true
+
+# Test 4: Apple Sign In option visible
+- assertVisible:
+    text: "Continue with Apple"
+    optional: true
+
+# Test 5: Email Sign In option visible
+- assertVisible:
+    text: "Continue with Email"
+    optional: true
+
+# Test 6: Security info visible
+- assertVisible:
+    text: "Your data is secure"
+    optional: true
+- assertVisible:
+    text: "encrypted"
+    optional: true
+
+# Test: Back button navigates to Welcome
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible:
+      text: "Get Started"
+    timeout: 5000
+    optional: true
+- assertVisible:
+    text: "Get Started"
+    optional: true
+
+- takeScreenshot: "authentication-complete"

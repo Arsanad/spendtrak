@@ -1,0 +1,108 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - premium
+  - bills
+  - zbb
+---
+# ============================================
+# BATCH 15: PREMIUM TIER - Bill Calendar, Zero-Based Budget
+# Tests 141-156
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- scroll
+
+# TESTS 141-148: Bill Calendar
+- tapOn:
+    text: "Bill Calendar"
+    optional: true
+- tapOn:
+    text: "Bills"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-141-view-bills"
+
+# Add bill
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Electric Bill"
+- inputText: "150"
+- tapOn:
+    text: "Monthly"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-142-145-add-bill"
+
+# View calendar view
+- tapOn:
+    text: "Calendar"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-146-148-bill-calendar"
+- back
+- waitForAnimationToEnd
+
+# TESTS 149-156: Zero-Based Budget
+- tapOn:
+    text: "Budgets"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Zero-Based"
+    optional: true
+- tapOn:
+    text: "ZBB"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-149-view-zbb"
+
+# Allocate income
+- tapOn:
+    text: "Allocate"
+    optional: true
+- tapOn:
+    text: "Assign"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-150-153-allocate"
+
+# Check unassigned
+- tapOn:
+    text: "Unassigned"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-154-156-unassigned"
+- back
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-15-complete"
+

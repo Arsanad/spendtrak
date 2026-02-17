@@ -1,0 +1,42 @@
+appId: com.spendtrak.app
+name: Receipt Scanner Tests
+tags: [receipt, camera]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Open Receipt Scanner
+- tapOn:
+    id: "scan-button"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "09-camera-opened"
+
+# Test 5.1: Camera View
+- assertVisible:
+    id: "camera-view"
+    optional: true
+
+# Test 5.2: Capture Button
+- assertVisible:
+    id: "capture-button"
+    optional: true
+
+# Test 5.3: Gallery Button
+- assertVisible:
+    id: "gallery-button"
+    optional: true
+
+# Test 5.4: Close Button
+- assertVisible:
+    id: "close-button"
+    optional: true
+
+# Close Modal
+- tapOn:
+    id: "close-button"
+    optional: true
+- takeScreenshot: "10-camera-closed"

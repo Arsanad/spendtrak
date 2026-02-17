@@ -1,0 +1,87 @@
+appId: com.spendtrak.app
+name: Dashboard Tests
+tags: [dashboard, critical]
+---
+
+# Setup: Login first
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Test 2.1: Dashboard Loads
+- assertVisible:
+    id: "dashboard-screen"
+- takeScreenshot: "03-dashboard-loaded"
+
+# Test 2.2: Greeting Shows
+- assertVisible: "Good"
+
+# Test 2.3: Date Shows
+- assertVisible: "202"
+
+# Test 2.4: Balance/Spent Card Visible
+- assertVisible:
+    id: "summary-card"
+    optional: true
+
+# Test 2.5: Quick Action - Scan Receipt
+- assertVisible:
+    id: "scan-button"
+    optional: true
+- tapOn:
+    id: "scan-button"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "close-button"
+    optional: true
+
+# Test 2.6: Quick Action - Add Expense
+- assertVisible:
+    id: "add-expense-button"
+    optional: true
+- tapOn:
+    id: "add-expense-button"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "close-button"
+    optional: true
+
+# Test 2.7: AI Consultant Button
+- assertVisible:
+    id: "ai-button"
+    optional: true
+- tapOn:
+    id: "ai-button"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "close-button"
+    optional: true
+
+# Test 2.8: Pull to Refresh
+- swipe:
+    direction: DOWN
+    duration: 500
+- assertVisible:
+    id: "summary-card"
+    optional: true
+
+# Test 2.9: Alerts Section
+- assertVisible:
+    id: "alerts-section"
+    optional: true
+
+# Test 2.10: Subscriptions Card
+- scroll
+- assertVisible:
+    id: "subscriptions-card"
+    optional: true
+
+# Test 2.11: Top Categories
+- scroll
+- assertVisible:
+    id: "top-categories"
+    optional: true
+- takeScreenshot: "04-dashboard-full"

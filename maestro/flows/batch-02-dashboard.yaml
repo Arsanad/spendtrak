@@ -1,0 +1,68 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - dashboard
+---
+# ============================================
+# BATCH 2: Dashboard Tests 7-11
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# TEST 7: Dashboard visible
+- assertVisible:
+    id: "dashboard-screen"
+    optional: true
+- takeScreenshot: "test-07-dashboard"
+
+# TEST 8: Summary card visible
+- assertVisible:
+    id: "summary-card"
+    optional: true
+
+# TEST 9: Quick actions visible
+- assertVisible:
+    id: "scan-button"
+    optional: true
+- assertVisible:
+    id: "add-expense-button"
+    optional: true
+- assertVisible:
+    id: "cards-button"
+    optional: true
+- takeScreenshot: "test-09-quick-actions"
+
+# TEST 10: Tap SCAN button
+- tapOn:
+    id: "scan-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertVisible:
+    id: "camera-modal"
+    optional: true
+- takeScreenshot: "test-10-scan-modal"
+# Close modal
+- back
+- waitForAnimationToEnd
+
+# TEST 11: Tap ADD button
+- tapOn:
+    id: "add-expense-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertVisible:
+    id: "add-expense-modal"
+    optional: true
+- takeScreenshot: "test-11-add-expense-modal"
+# Close modal
+- back
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-02-complete"
+

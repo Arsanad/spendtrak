@@ -1,0 +1,87 @@
+# SpendTrak E2E Test: Add Expense Flow
+# Tests manual expense entry with all fields
+
+appId: com.spendtrak.app
+
+---
+# Test: Add Expense Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Navigate to Add Expense from dashboard
+- tapOn:
+    text: "Add Expense"
+    optional: true
+
+# Wait for modal to open
+- waitForAnimationToEnd
+
+# Verify add expense modal is visible
+- assertVisible:
+    text: "Add Expense"
+    optional: true
+
+# Enter merchant name
+- tapOn:
+    id: "input-merchant"
+    optional: true
+
+- inputText: "Starbucks"
+
+# Enter amount
+- tapOn:
+    id: "input-amount"
+    optional: true
+
+- inputText: "5.50"
+
+# Select category
+- tapOn:
+    text: "Category"
+    optional: true
+
+- tapOn:
+    text: "Food & Dining"
+    optional: true
+
+# Select date (use today's date)
+- tapOn:
+    text: "Date"
+    optional: true
+
+- tapOn:
+    text: "Done"
+    optional: true
+
+# Add notes
+- tapOn:
+    id: "input-notes"
+    optional: true
+
+- inputText: "Morning coffee"
+
+# Toggle recurring if available
+- tapOn:
+    text: "Recurring"
+    optional: true
+
+# Save the expense
+- tapOn:
+    text: "Save Expense"
+    optional: true
+
+# Wait for save animation
+- waitForAnimationToEnd
+
+# Verify success message or return to dashboard
+- assertVisible:
+    text: "Expense added"
+    optional: true
+
+# Verify transaction appears in list
+- assertVisible:
+    text: "Starbucks"
+    optional: true

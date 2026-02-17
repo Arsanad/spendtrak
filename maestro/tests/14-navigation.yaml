@@ -1,0 +1,57 @@
+appId: com.spendtrak.app
+name: Navigation Tests
+tags: [navigation, tabs]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Test 14.1: Home Tab
+- tapOn:
+    id: "tab-home"
+- waitForAnimationToEnd
+- assertVisible:
+    id: "dashboard-screen"
+- takeScreenshot: "27-nav-home"
+
+# Test 14.2: Transactions Tab
+- tapOn:
+    id: "tab-transactions"
+- waitForAnimationToEnd
+- assertVisible:
+    id: "transactions-screen"
+- takeScreenshot: "28-nav-transactions"
+
+# Test 14.3: Subscriptions Tab
+- tapOn:
+    id: "tab-subscriptions"
+- waitForAnimationToEnd
+- assertVisible:
+    id: "subscriptions-screen"
+- takeScreenshot: "29-nav-subscriptions"
+
+# Test 14.4: Alerts Tab
+- tapOn:
+    id: "tab-alerts"
+- waitForAnimationToEnd
+- assertVisible:
+    id: "alerts-screen"
+- takeScreenshot: "30-nav-alerts"
+
+# Test 14.5: Settings Tab
+- tapOn:
+    id: "tab-settings"
+- waitForAnimationToEnd
+- assertVisible:
+    id: "settings-screen"
+- takeScreenshot: "31-nav-settings"
+
+# Test 14.6: Back to Home
+- tapOn:
+    id: "tab-home"
+- waitForAnimationToEnd
+- assertVisible:
+    id: "dashboard-screen"
+- takeScreenshot: "32-nav-back-home"

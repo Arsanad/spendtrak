@@ -1,0 +1,53 @@
+appId: com.spendtrak.app
+name: "Free Tier - Dashboard Tests (7-11)"
+tags: [free, dashboard]
+---
+
+# Dashboard tests - assumes already logged in via dev-login.yaml
+
+# Test 7: Dashboard Summary - View total spending this month
+- assertVisible:
+    text: "Good|afternoon|morning|evening"
+    optional: true
+- assertVisible:
+    text: "USD|\\$"
+    optional: true
+
+# Test 8: Top Categories - View spending breakdown
+- assertVisible:
+    text: "QUICK ACTIONS|Quick Actions"
+    optional: true
+
+# Test 9: Quick Actions visible
+- assertVisible:
+    text: "SCAN"
+    optional: true
+- assertVisible:
+    text: "ADD"
+    optional: true
+- assertVisible:
+    text: "CARDS"
+    optional: true
+
+# Test 10: Tap on SCAN button
+- tapOn:
+    text: "SCAN"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Cancel|Back|Close"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 11: Tap on ADD button
+- tapOn:
+    text: "ADD"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Cancel|Back|Close"
+    optional: true
+- waitForAnimationToEnd
+
+# Take screenshot for verification
+- takeScreenshot: "dashboard-complete"

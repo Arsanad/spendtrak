@@ -1,0 +1,133 @@
+# SpendTrak E2E Test: AI Financial Consultant Flow
+# Tests AI chat, insights, and financial health score
+
+appId: com.spendtrak.app
+
+---
+# Test: AI Financial Consultant Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Open AI Consultant from dashboard
+- tapOn:
+    text: "🤖"
+    optional: true
+
+# Wait for AI Consultant modal to open
+- waitForAnimationToEnd
+
+# Verify AI Consultant screen
+- assertVisible:
+    text: "AI Consultant"
+    optional: true
+
+# Check for financial health score
+- assertVisible:
+    text: "Financial Health"
+    optional: true
+
+# Verify score components
+- assertVisible:
+    text: "Spending"
+    optional: true
+
+# Test sending a message
+- tapOn:
+    id: "chat-input"
+    optional: true
+
+- inputText: "How can I save more money?"
+
+# Send message
+- tapOn:
+    id: "send-button"
+    optional: true
+
+# Wait for AI response
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# Verify AI responded
+- assertVisible:
+    text: "Here"
+    optional: true
+
+# Test quick suggestion chips
+- tapOn:
+    text: "Tips to save"
+    optional: true
+
+# Wait for response
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# Ask about subscriptions
+- tapOn:
+    id: "chat-input"
+    optional: true
+
+- inputText: "Show me unused subscriptions"
+
+- tapOn:
+    id: "send-button"
+    optional: true
+
+# Wait for response
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# Ask about card optimization
+- tapOn:
+    id: "chat-input"
+    optional: true
+
+- inputText: "Which card should I use for groceries?"
+
+- tapOn:
+    id: "send-button"
+    optional: true
+
+# Wait for response
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# View conversation history
+- tapOn:
+    text: "History"
+    optional: true
+
+# Verify history is shown
+- assertVisible:
+    text: "Previous Conversations"
+    optional: true
+
+# Select a previous conversation
+- tapOn:
+    id: "conversation-0"
+    optional: true
+
+# Wait for conversation to load
+- waitForAnimationToEnd
+
+# Start new conversation
+- tapOn:
+    text: "New"
+    optional: true
+
+# Verify new conversation started
+- assertVisible:
+    text: "New Conversation"
+    optional: true
+
+# Close AI Consultant
+- tapOn:
+    text: "✕"
+    optional: true
+
+# Verify returned to dashboard
+- assertVisible:
+    text: "Good"
+    optional: true

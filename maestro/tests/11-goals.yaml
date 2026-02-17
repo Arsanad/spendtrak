@@ -1,0 +1,45 @@
+appId: com.spendtrak.app
+name: Goals Tests
+tags: [goals, finance]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Settings then Goals
+- tapOn:
+    id: "tab-settings"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Goals"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "21-goals-screen"
+
+# Test 11.1: Goal List
+- assertVisible:
+    id: "goal-item"
+    optional: true
+
+# Test 11.2: Add Goal Button
+- assertVisible:
+    text: "Add"
+    optional: true
+
+# Test 11.3: Goal Card
+- assertVisible:
+    id: "goal-card"
+    optional: true
+
+# Test 11.4: Progress Display
+- assertVisible:
+    id: "goal-progress"
+    optional: true
+
+# Test 11.5: Back Navigation
+- tapOn:
+    text: "Back"
+    optional: true
+- takeScreenshot: "22-goals-closed"

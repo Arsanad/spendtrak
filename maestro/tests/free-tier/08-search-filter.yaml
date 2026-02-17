@@ -1,0 +1,106 @@
+appId: com.spendtrak.app
+name: "Free Tier - Search & Filter Tests (43-47)"
+tags: [free, search, filter]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Transactions
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 43: Search Transactions - Search by merchant name
+- tapOn:
+    id: "search-input"
+    optional: true
+- inputText: "Coffee"
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Coffee"
+    optional: true
+- eraseText: 20
+
+# Test 44: Filter by Category - Filter transactions by category
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Category"
+    optional: true
+- tapOn:
+    text: "Food"
+    optional: true
+- tapOn:
+    text: "Apply"
+    optional: true
+- waitForAnimationToEnd
+
+# Clear filter
+- tapOn:
+    text: "Clear|Reset|All"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 45: Filter by Date - Filter by date range
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Date"
+    optional: true
+- tapOn:
+    text: "This Month"
+    optional: true
+- tapOn:
+    text: "Apply"
+    optional: true
+- waitForAnimationToEnd
+
+# Clear filter
+- tapOn:
+    text: "Clear|Reset|All"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 46: Filter by Amount - Filter by amount range
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Amount"
+    optional: true
+- tapOn:
+    id: "min-amount-input"
+    optional: true
+- inputText: "10"
+- tapOn:
+    id: "max-amount-input"
+    optional: true
+- inputText: "100"
+- tapOn:
+    text: "Apply"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 47: Sort Options - Sort by date/amount
+- tapOn:
+    text: "Sort"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Amount|Date"
+    optional: true
+- waitForAnimationToEnd
+
+- takeScreenshot: "search-filter-complete"

@@ -1,0 +1,32 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.spendtrak.app",
+      "sha256_cert_fingerprints": [
+        "8A:7C:4D:07:91:D0:64:73:6E:A7:07:57:48:79:26:24:17:5B:E8:64:05:DD:3D:E8:0D:CE:41:8B:43:CB:04:F8"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.spendtrak.app.preview",
+      "sha256_cert_fingerprints": [
+        "8A:7C:4D:07:91:D0:64:73:6E:A7:07:57:48:79:26:24:17:5B:E8:64:05:DD:3D:E8:0D:CE:41:8B:43:CB:04:F8"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.spendtrak.app.dev",
+      "sha256_cert_fingerprints": [
+        "8A:7C:4D:07:91:D0:64:73:6E:A7:07:57:48:79:26:24:17:5B:E8:64:05:DD:3D:E8:0D:CE:41:8B:43:CB:04:F8"
+      ]
+    }
+  }
+]

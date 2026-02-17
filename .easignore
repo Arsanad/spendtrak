@@ -1,0 +1,73 @@
+# EAS Build Ignore File
+# This file determines what gets uploaded to EAS Build servers
+# IMPORTANT: .env is NOT ignored here so it gets included in builds
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# Debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# DO NOT ignore .env - we need it for builds!
+# .env  <-- intentionally commented out
+
+# TypeScript
+*.tsbuildinfo
+
+# Generated native folders
+/ios
+/android
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Windows
+Thumbs.db
+
+# Testing
+coverage/
+
+# Secrets - NEVER include these in builds
+credentials.json
+google-services.json
+GoogleService-Info.plist
+
+# Large files not needed for build
+*.apk
+*.aab
+*.ipa
+*.png.bak
+*.mp4
+spendtrak-cinematic-v2/

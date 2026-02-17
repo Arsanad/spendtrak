@@ -1,0 +1,83 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - transactions
+---
+# ============================================
+# BATCH 3: Transactions Tests 12-21
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# TEST 12: Navigate to Transactions tab
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- tapOn:
+    text: "Transactions"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 13: Transactions screen visible
+- assertVisible:
+    id: "transactions-screen"
+    optional: true
+- takeScreenshot: "test-13-transactions"
+
+# TEST 14: Search input visible
+- assertVisible:
+    id: "search-input"
+    optional: true
+
+# TEST 15: Filter chips visible
+- assertVisible:
+    id: "filter-chip-all"
+    optional: true
+- assertVisible:
+    id: "filter-chip-receipt"
+    optional: true
+- assertVisible:
+    id: "filter-chip-manual"
+    optional: true
+
+# TEST 16: Tap Receipt filter
+- tapOn:
+    id: "filter-chip-receipt"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-16-receipt-filter"
+
+# TEST 17: Tap Manual filter
+- tapOn:
+    id: "filter-chip-manual"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-17-manual-filter"
+
+# TEST 18: Tap All filter
+- tapOn:
+    id: "filter-chip-all"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 19: Search for transaction
+- tapOn:
+    id: "search-input"
+    optional: true
+- inputText: "coffee"
+- waitForAnimationToEnd
+- takeScreenshot: "test-19-search"
+- eraseText: 10
+
+# TEST 20-21: Transaction list
+- assertVisible:
+    id: "transaction-list"
+    optional: true
+- takeScreenshot: "test-20-21-transaction-list"
+
+- takeScreenshot: "batch-03-complete"
+

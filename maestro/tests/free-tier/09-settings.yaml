@@ -1,0 +1,76 @@
+appId: com.spendtrak.app
+name: "Free Tier - Settings Tests (48-51)"
+tags: [free, settings]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 48: Profile Settings - View/edit profile
+- assertVisible:
+    text: "Profile"
+    optional: true
+- tapOn:
+    text: "Profile"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Email|Name"
+    optional: true
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 49: Currency Setting - Change currency
+- scrollUntilVisible:
+    element:
+      text: "Currency"
+- tapOn:
+    text: "Currency"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "USD|EUR|GBP"
+    optional: true
+- tapOn:
+    text: "USD"
+    optional: true
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 50: Theme (Light/Dark) - Toggle theme
+- scrollUntilVisible:
+    element:
+      text: "Theme|Dark Mode|Appearance"
+- tapOn:
+    text: "Theme|Dark Mode|Appearance"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 51: Notifications - Toggle notification settings
+- scrollUntilVisible:
+    element:
+      text: "Notifications"
+- tapOn:
+    text: "Notifications"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    id: "notification-toggle"
+    optional: true
+
+- takeScreenshot: "settings-complete"

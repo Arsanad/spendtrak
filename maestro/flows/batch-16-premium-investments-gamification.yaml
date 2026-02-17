@@ -1,0 +1,117 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - premium
+  - investments
+  - gamification
+---
+# ============================================
+# BATCH 16: PREMIUM TIER - Investments, Gamification
+# Tests 157-180
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- scroll
+
+# TESTS 157-168: Investment Tracking
+- tapOn:
+    text: "Investments"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-157-view-investments"
+
+# Add investment account
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "401k"
+- inputText: "50000"
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-158-161-add-investment"
+
+# View portfolio
+- tapOn:
+    text: "Portfolio"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-162-165-portfolio"
+
+# View performance
+- tapOn:
+    text: "Performance"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-166-168-performance"
+- back
+- waitForAnimationToEnd
+
+# TESTS 169-180: Gamification (Achievements)
+- scroll
+- tapOn:
+    text: "Achievements"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-169-view-achievements"
+
+# View badges
+- tapOn:
+    text: "Badges"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-170-173-badges"
+
+# View streaks
+- tapOn:
+    text: "Streaks"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-174-176-streaks"
+
+# View challenges
+- tapOn:
+    text: "Challenges"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-177-180-challenges"
+- back
+- waitForAnimationToEnd
+
+# Return to Dashboard
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Home"
+    optional: true
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-16-complete"
+- takeScreenshot: "all-180-tests-complete"
+

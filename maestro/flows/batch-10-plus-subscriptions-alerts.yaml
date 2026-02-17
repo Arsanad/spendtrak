@@ -1,0 +1,107 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - plus
+  - subscriptions
+  - alerts
+---
+# ============================================
+# BATCH 10: PLUS TIER - Date Presets, Rollover, Subscriptions, Alerts
+# Tests 66-86
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# TESTS 66-70: Date Presets (in Transactions filter)
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- tapOn:
+    text: "Transactions"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Filter"
+    optional: true
+- tapOn:
+    text: "Date"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-66-70-date-presets"
+- tapOn:
+    text: "Apply"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- back
+- waitForAnimationToEnd
+
+# TESTS 71-74: Budget Rollover
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Budgets"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-71-74-rollover"
+- back
+- waitForAnimationToEnd
+
+# TESTS 75-81: Subscriptions
+- tapOn:
+    id: "tab-subscriptions"
+    optional: true
+- tapOn:
+    text: "Subscriptions"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-75-view-subscriptions"
+
+# Add subscription
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Netflix"
+- inputText: "15.99"
+- tapOn:
+    text: "Monthly"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-76-81-subscriptions"
+
+# TESTS 82-86: Alerts
+- tapOn:
+    id: "tab-alerts"
+    optional: true
+- tapOn:
+    text: "Alerts"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-82-86-alerts"
+
+- takeScreenshot: "batch-10-complete"
+

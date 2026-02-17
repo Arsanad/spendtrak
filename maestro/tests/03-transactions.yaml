@@ -1,0 +1,55 @@
+appId: com.spendtrak.app
+name: Transactions Tests
+tags: [transactions, critical]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Transactions Tab
+- tapOn:
+    id: "tab-transactions"
+- waitForAnimationToEnd
+- takeScreenshot: "05-transactions-tab"
+
+# Test 3.1: Transaction List
+- assertVisible:
+    id: "transactions-screen"
+
+# Test 3.2: Search Input
+- assertVisible:
+    id: "search-input"
+    optional: true
+
+# Test 3.3: Filter Buttons
+- assertVisible:
+    text: "All"
+    optional: true
+- assertVisible:
+    text: "Email"
+    optional: true
+- assertVisible:
+    text: "Receipt"
+    optional: true
+
+# Test 3.4: Transaction Items
+- assertVisible:
+    id: "transaction-item"
+    optional: true
+
+# Test 3.5: Tap Transaction
+- tapOn:
+    id: "transaction-item"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Back"
+    optional: true
+
+# Test 3.6: Pull to Refresh
+- swipe:
+    direction: DOWN
+    duration: 500
+- takeScreenshot: "06-transactions-refreshed"

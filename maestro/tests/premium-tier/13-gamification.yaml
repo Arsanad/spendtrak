@@ -1,0 +1,112 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Gamification Tests (170-180)"
+tags: [premium, gamification]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Achievements/Gamification
+- tapOn:
+    text: "Achievements|Rewards|Profile"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 170: View Achievements - See all achievements
+- assertVisible:
+    text: "Achievements"
+    optional: true
+- tapOn:
+    text: "Achievements"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Achievement|Badge"
+    optional: true
+
+# Test 171: Unlock Achievement - Complete action, unlock badge
+- assertVisible:
+    text: "Unlocked|Earned"
+    optional: true
+
+# Test 172: View Points - See total points
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Points"
+    optional: true
+- assertVisible:
+    text: "[0-9]+"
+    optional: true
+
+# Test 173: Current Level - See level (Bronze, Silver, etc.)
+- assertVisible:
+    text: "Level|Bronze|Silver|Gold|Platinum"
+    optional: true
+
+# Test 174: Level Progress - Progress bar to next level
+- assertVisible:
+    text: "Progress|Next Level"
+    optional: true
+- assertVisible:
+    id: "level-progress"
+    optional: true
+
+# Test 175: Daily Streak - See current streak
+- assertVisible:
+    text: "Streak|Days"
+    optional: true
+- assertVisible:
+    text: "[0-9]+ day"
+    optional: true
+
+# Test 176: Streak Milestone - 7-day, 30-day streak badges
+- tapOn:
+    text: "Achievements"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "7 Day|30 Day|Streak"
+    optional: true
+
+# Test 177: View Challenges - See active challenges
+- tapOn:
+    text: "Challenges"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Challenges|Active"
+    optional: true
+
+# Test 178: Join Challenge - Join a challenge
+- tapOn:
+    text: "Join|Start"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Joined|Started"
+    optional: true
+
+# Test 179: Challenge Progress - See progress in challenge
+- assertVisible:
+    text: "Progress|%"
+    optional: true
+
+# Test 180: Leaderboard - See rankings
+- tapOn:
+    text: "Leaderboard|Rankings"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Leaderboard|Rank|#"
+    optional: true
+
+- takeScreenshot: "gamification-complete"

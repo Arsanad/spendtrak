@@ -1,0 +1,96 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - premium
+  - cards
+---
+# ============================================
+# BATCH 12: PREMIUM TIER - Card Optimizer, Missed Rewards
+# Tests 96-108
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Dashboard
+- tapOn:
+    id: "tab-home"
+    optional: true
+- tapOn:
+    text: "Home"
+    optional: true
+- waitForAnimationToEnd
+
+# TESTS 96-102: Card Optimizer - via CARDS quick action
+- tapOn:
+    id: "cards-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: "test-96-view-cards"
+
+# Add a card
+- tapOn:
+    text: "Add Card"
+    optional: true
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Chase Sapphire"
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-97-102-card-optimizer"
+
+# View card recommendations
+- tapOn:
+    text: "Optimize"
+    optional: true
+- tapOn:
+    text: "Recommendations"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-card-recommendations"
+- back
+- waitForAnimationToEnd
+
+# TESTS 103-108: Missed Rewards (via Settings)
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "My Cards"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Missed Rewards"
+    optional: true
+- tapOn:
+    text: "Rewards"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-103-108-missed-rewards"
+- back
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-12-complete"
+

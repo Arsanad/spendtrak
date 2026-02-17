@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name="Test Suite" device="R9HT40F14JA" tests="1" failures="1" time="69.0">
+    <testcase id="SpendTrak Complete 180 Test Suite" name="SpendTrak Complete 180 Test Suite" classname="SpendTrak Complete 180 Test Suite" time="69.0" status="ERROR">
+      <properties/>
+      <failure>Assertion is false: "Get Started" is visible</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

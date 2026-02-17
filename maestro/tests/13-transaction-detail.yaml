@@ -1,0 +1,57 @@
+appId: com.spendtrak.app
+name: Transaction Detail Tests
+tags: [transaction-detail]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Transactions
+- tapOn:
+    id: "tab-transactions"
+- waitForAnimationToEnd
+
+# Tap on a Transaction
+- tapOn:
+    id: "transaction-item"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "25-transaction-detail"
+
+# Test 13.1: Amount Display
+- assertVisible:
+    id: "detail-amount"
+    optional: true
+
+# Test 13.2: Merchant Name
+- assertVisible:
+    id: "detail-merchant"
+    optional: true
+
+# Test 13.3: Category Badge
+- assertVisible:
+    id: "detail-category"
+    optional: true
+
+# Test 13.4: Date & Time
+- assertVisible:
+    id: "detail-date"
+    optional: true
+
+# Test 13.5: Edit Button
+- assertVisible:
+    text: "Edit"
+    optional: true
+
+# Test 13.6: Delete Button
+- assertVisible:
+    text: "Delete"
+    optional: true
+
+# Test 13.7: Back Navigation
+- tapOn:
+    text: "Back"
+    optional: true
+- takeScreenshot: "26-transaction-detail-closed"

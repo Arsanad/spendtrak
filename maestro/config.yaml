@@ -1,0 +1,6 @@
+appId: com.spendtrak.app
+name: SpendTrak Complete Test Suite
+tags:
+  - smoke
+  - regression
+  - full

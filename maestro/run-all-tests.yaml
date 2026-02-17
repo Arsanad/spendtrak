@@ -1,0 +1,20 @@
+appId: com.spendtrak.app
+name: SpendTrak Complete Test Suite
+tags: [full, regression]
+---
+
+- runFlow: "tests/01-authentication.yaml"
+- runFlow: "tests/02-dashboard.yaml"
+- runFlow: "tests/03-transactions.yaml"
+- runFlow: "tests/04-add-expense.yaml"
+- runFlow: "tests/05-receipt-scanner.yaml"
+- runFlow: "tests/06-subscriptions.yaml"
+- runFlow: "tests/07-alerts.yaml"
+- runFlow: "tests/08-ai-consultant.yaml"
+- runFlow: "tests/09-settings.yaml"
+- runFlow: "tests/10-budgets.yaml"
+- runFlow: "tests/11-goals.yaml"
+- runFlow: "tests/12-cards.yaml"
+- runFlow: "tests/13-transaction-detail.yaml"
+- runFlow: "tests/14-navigation.yaml"
+- runFlow: "tests/15-theme.yaml"

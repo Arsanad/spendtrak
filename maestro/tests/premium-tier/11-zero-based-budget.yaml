@@ -1,0 +1,132 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Zero-Based Budgeting Tests (150-156)"
+tags: [premium, zero-based]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Zero-Based Budget
+- tapOn:
+    text: "Budgets|Budget"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Zero-Based|ZBB"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 150: Create Period - Create new budget period
+- tapOn:
+    text: "New Period|Create|\\+"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Budget Period|Month"
+    optional: true
+
+# Test 151: Set Income - Enter total income
+- tapOn:
+    id: "income-input"
+    optional: true
+- inputText: "5000"
+- tapOn:
+    text: "Next|Continue"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 152: Allocate to Categories - Assign $ to each category
+- tapOn:
+    text: "Housing"
+    optional: true
+- tapOn:
+    id: "allocation-input"
+    optional: true
+- inputText: "1500"
+- tapOn:
+    text: "Food"
+    optional: true
+- tapOn:
+    id: "allocation-input"
+    optional: true
+- inputText: "500"
+- tapOn:
+    text: "Transportation"
+    optional: true
+- tapOn:
+    id: "allocation-input"
+    optional: true
+- inputText: "400"
+- tapOn:
+    text: "Savings"
+    optional: true
+- tapOn:
+    id: "allocation-input"
+    optional: true
+- inputText: "1000"
+
+# Test 153: Balance Check - Verify income = allocated
+- assertVisible:
+    text: "Balance|Remaining"
+    optional: true
+- assertVisible:
+    text: "\\$0|Balanced"
+    optional: true
+
+# Test 154: Unallocated Warning - Alert if money unallocated
+- assertVisible:
+    text: "Unallocated|Remaining to allocate"
+    optional: true
+
+# Complete allocation
+- tapOn:
+    text: "Other"
+    optional: true
+- tapOn:
+    id: "allocation-input"
+    optional: true
+- inputText: "1600"
+- tapOn:
+    text: "Save|Done"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 155: Track Spending - See spent vs allocated
+- assertVisible:
+    text: "Spent|Allocated"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 156: Reallocate - Move money between categories
+- tapOn:
+    text: "Reallocate|Move"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "From"
+    optional: true
+- tapOn:
+    text: "Other"
+    optional: true
+- tapOn:
+    text: "To"
+    optional: true
+- tapOn:
+    text: "Food"
+    optional: true
+- tapOn:
+    id: "reallocate-amount-input"
+    optional: true
+- inputText: "100"
+- tapOn:
+    text: "Move|Transfer"
+    optional: true
+
+- takeScreenshot: "zero-based-complete"

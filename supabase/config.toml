@@ -1,0 +1,156 @@
+# SpendTrak Supabase Configuration
+# https://supabase.com/docs/guides/cli/config
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[api.tls]
+enabled = false
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[db.pooler]
+enabled = false
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[realtime]
+enabled = true
+ip_version = "IPv4"
+max_header_length = 4096
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://127.0.0.1"
+
+[inbucket]
+enabled = true
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[storage.image_transformation]
+enabled = true
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:3000"
+additional_redirect_urls = ["https://127.0.0.1:3000"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+enable_anonymous_sign_ins = false
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+
+[auth.email.template.confirmation]
+subject = "Confirm your SpendTrak account"
+content_path = "./templates/confirmation.html"
+
+[auth.email.template.magic_link]
+subject = "Your SpendTrak login link"
+content_path = "./templates/magic_link.html"
+
+[auth.email.template.recovery]
+subject = "Reset your SpendTrak password"
+content_path = "./templates/recovery.html"
+
+[auth.email.template.email_change]
+subject = "Confirm your new email address"
+content_path = "./templates/email_change.html"
+
+[auth.sms]
+enable_signup = false
+enable_confirmations = false
+
+[auth.external.apple]
+enabled = false
+
+[auth.external.azure]
+enabled = false
+
+[auth.external.google]
+enabled = true
+client_id = "env(GOOGLE_CLIENT_ID)"
+secret = "env(GOOGLE_CLIENT_SECRET)"
+redirect_uri = ""
+url = ""
+
+[edge_runtime]
+enabled = true
+policy = "oneshot"
+inspector_port = 8083
+
+[analytics]
+enabled = false
+port = 54327
+vector_port = 54328
+gcp_project_id = ""
+gcp_project_number = ""
+gcp_jwt_path = "supabase/gcloud.json"
+
+[experimental]
+orioledb_version = ""
+s3_host = "env(S3_HOST)"
+s3_region = "env(S3_REGION)"
+s3_access_key = "env(S3_ACCESS_KEY)"
+s3_secret_key = "env(S3_SECRET_KEY)"
+
+[functions.gmail-webhook]
+enabled = true
+verify_jwt = false
+import_map = "./functions/gmail-webhook/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/gmail-webhook/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/gmail-webhook/*.html" ]
+
+[functions.gmail-oauth-callback]
+enabled = true
+verify_jwt = false
+import_map = "./functions/gmail-oauth-callback/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/gmail-oauth-callback/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/gmail-oauth-callback/*.html" ]
+
+[functions.outlook-oauth-callback]
+enabled = true
+verify_jwt = false
+
+[functions.outlook-webhook]
+enabled = true
+verify_jwt = false
+
+[functions.email-inbound]
+enabled = true
+verify_jwt = false
+import_map = "./functions/email-inbound/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/email-inbound/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/email-inbound/*.html" ]

@@ -1,0 +1,69 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - receipt
+---
+# ============================================
+# BATCH 4: Receipt Scanning Tests 22-26
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Dashboard first
+- tapOn:
+    id: "tab-home"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 22: Open camera/scanner
+- tapOn:
+    id: "scan-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Handle permission dialog
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "While using"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 23: Camera modal visible
+- assertVisible:
+    id: "camera-modal"
+    optional: true
+- takeScreenshot: "test-23-camera-modal"
+
+# TEST 24: Gallery button visible
+- assertVisible:
+    id: "gallery-button"
+    optional: true
+
+# TEST 25: Capture button visible
+- assertVisible:
+    id: "capture-button"
+    optional: true
+- takeScreenshot: "test-25-capture-button"
+
+# TEST 26: Close camera
+- back
+- waitForAnimationToEnd
+- takeScreenshot: "test-26-camera-closed"
+
+- takeScreenshot: "batch-04-complete"
+

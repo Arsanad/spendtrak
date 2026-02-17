@@ -1,0 +1,137 @@
+# SpendTrak E2E Test: Subscriptions Flow
+# Tests subscription management and Subscription Killer feature
+
+appId: com.spendtrak.app
+
+---
+# Test: Subscriptions Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Navigate to Subscriptions tab
+- tapOn:
+    id: "tab-subscriptions"
+    optional: true
+
+# Wait for subscriptions to load
+- waitForAnimationToEnd
+
+# Verify subscriptions screen
+- assertVisible:
+    text: "Subscriptions"
+    optional: true
+
+# Verify summary card shows monthly cost
+- assertVisible:
+    text: "/month"
+    optional: true
+
+# Filter by status - Active
+- tapOn:
+    text: "Active"
+    optional: true
+
+# Wait for filter
+- waitForAnimationToEnd
+
+# Filter by status - All
+- tapOn:
+    text: "All"
+    optional: true
+
+# Wait for filter
+- waitForAnimationToEnd
+
+# Tap on a subscription to view details
+- tapOn:
+    id: "subscription-item-0"
+    optional: true
+
+# Verify subscription detail screen
+- assertVisible:
+    text: "Subscription Details"
+    optional: true
+
+# Verify subscription info is displayed
+- assertVisible:
+    text: "Next billing"
+    optional: true
+
+# Mark as used
+- tapOn:
+    text: "Mark as Used"
+    optional: true
+
+# Wait for update
+- waitForAnimationToEnd
+
+# Test cancel subscription flow
+- tapOn:
+    text: "Cancel Subscription"
+    optional: true
+
+# Verify cancellation options
+- assertVisible:
+    text: "Cancel"
+    optional: true
+
+# Generate cancellation email
+- tapOn:
+    text: "Generate Email"
+    optional: true
+
+# Verify email template is shown
+- assertVisible:
+    text: "Subject:"
+    optional: true
+
+# Copy email
+- tapOn:
+    text: "Copy Email"
+    optional: true
+
+# Dismiss modal
+- tapOn:
+    text: "Close"
+    optional: true
+
+# Go back to subscriptions list
+- back
+
+# Add new subscription
+- tapOn:
+    text: "Add Subscription"
+    optional: true
+
+# Enter subscription details
+- tapOn:
+    id: "input-name"
+    optional: true
+
+- inputText: "Spotify"
+
+- tapOn:
+    id: "input-amount"
+    optional: true
+
+- inputText: "9.99"
+
+# Select frequency
+- tapOn:
+    text: "Monthly"
+    optional: true
+
+# Save subscription
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Verify subscription was added
+- waitForAnimationToEnd
+
+- assertVisible:
+    text: "Spotify"
+    optional: true

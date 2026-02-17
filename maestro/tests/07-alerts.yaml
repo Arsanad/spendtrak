@@ -1,0 +1,48 @@
+appId: com.spendtrak.app
+name: Alerts Tests
+tags: [alerts, notifications]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Alerts Tab
+- tapOn:
+    id: "tab-alerts"
+- waitForAnimationToEnd
+- takeScreenshot: "13-alerts-tab"
+
+# Test 7.1: Alerts Screen
+- assertVisible:
+    id: "alerts-screen"
+
+# Test 7.2: Alert List
+- assertVisible:
+    id: "alert-item"
+    optional: true
+
+# Test 7.3: Unread Count
+- assertVisible:
+    id: "unread-badge"
+    optional: true
+
+# Test 7.4: Alert Types
+- assertVisible:
+    text: "Warning"
+    optional: true
+- assertVisible:
+    text: "Info"
+    optional: true
+
+# Test 7.5: Mark All Read
+- assertVisible:
+    text: "Mark all read"
+    optional: true
+
+# Test 7.6: Pull to Refresh
+- swipe:
+    direction: DOWN
+    duration: 500
+- takeScreenshot: "14-alerts-refreshed"

@@ -1,0 +1,51 @@
+appId: com.spendtrak.app
+name: Theme and UI Tests
+tags: [theme, ui]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+- takeScreenshot: "33-theme-dashboard"
+
+# Test 15.1: Dark Theme Consistency
+- assertVisible:
+    id: "dashboard-screen"
+
+# Test 15.2: Navigate Through All Tabs
+- tapOn:
+    id: "tab-transactions"
+- waitForAnimationToEnd
+- takeScreenshot: "34-theme-transactions"
+
+- tapOn:
+    id: "tab-subscriptions"
+- waitForAnimationToEnd
+- takeScreenshot: "35-theme-subscriptions"
+
+- tapOn:
+    id: "tab-alerts"
+- waitForAnimationToEnd
+- takeScreenshot: "36-theme-alerts"
+
+- tapOn:
+    id: "tab-settings"
+- waitForAnimationToEnd
+- takeScreenshot: "37-theme-settings"
+
+# Test 15.3: Modal Theme
+- tapOn:
+    id: "tab-home"
+- waitForAnimationToEnd
+- tapOn:
+    id: "ai-button"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "38-theme-modal"
+- tapOn:
+    id: "close-button"
+    optional: true
+
+# Final Screenshot
+- takeScreenshot: "39-theme-complete"

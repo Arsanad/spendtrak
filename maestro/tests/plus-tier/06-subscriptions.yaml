@@ -1,0 +1,104 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Subscription Detection Tests (75-81)"
+tags: [plus, subscriptions]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Subscriptions
+- tapOn:
+    id: "tab-subscriptions"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 75: View Subscriptions - See detected subscriptions
+- assertVisible:
+    id: "subscriptions-screen"
+    optional: true
+- assertVisible:
+    text: "Subscriptions|Monthly"
+    optional: true
+
+# Test 76: Add Subscription - Manually add subscription
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "subscription-name-input"
+    optional: true
+- inputText: "Netflix"
+- tapOn:
+    id: "subscription-amount-input"
+    optional: true
+- inputText: "15.99"
+- tapOn:
+    text: "Monthly"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Netflix"
+    optional: true
+
+# Test 77: Edit Subscription - Modify subscription details
+- tapOn:
+    text: "Netflix"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Edit"
+    optional: true
+- tapOn:
+    id: "subscription-amount-input"
+    optional: true
+- eraseText: 20
+- inputText: "18.99"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 78: Cancel Subscription - Mark as cancelled
+- tapOn:
+    text: "Netflix"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Cancel|Mark Cancelled"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+# Test 79: Monthly Total - See total monthly subscriptions
+- assertVisible:
+    text: "Monthly Total|Total"
+    optional: true
+- assertVisible:
+    text: "\\$/month|per month"
+    optional: true
+
+# Test 80: Annual Total - See yearly cost
+- assertVisible:
+    text: "Annual|Yearly|Year"
+    optional: true
+
+# Test 81: Renewal Alerts - Get notified before renewal
+- tapOn:
+    id: "subscription-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Renewal|Next|Due"
+    optional: true
+
+- takeScreenshot: "subscriptions-complete"

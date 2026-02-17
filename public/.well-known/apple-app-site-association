@@ -1,0 +1,57 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["NHT4RV54Z7.com.spendtrak.app"],
+        "paths": [
+          "/transaction/*",
+          "/auth/*",
+          "/settings/*",
+          "/budget/*",
+          "/goal/*",
+          "/invite/*"
+        ],
+        "components": [
+          {
+            "/": "/transaction/*",
+            "comment": "Transaction deep links"
+          },
+          {
+            "/": "/auth/callback",
+            "comment": "OAuth callback"
+          }
+        ]
+      },
+      {
+        "appIDs": ["NHT4RV54Z7.com.spendtrak.app.preview"],
+        "paths": [
+          "/transaction/*",
+          "/auth/*",
+          "/settings/*",
+          "/budget/*",
+          "/goal/*",
+          "/invite/*"
+        ]
+      },
+      {
+        "appIDs": ["NHT4RV54Z7.com.spendtrak.app.dev"],
+        "paths": [
+          "/transaction/*",
+          "/auth/*",
+          "/settings/*",
+          "/budget/*",
+          "/goal/*",
+          "/invite/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "NHT4RV54Z7.com.spendtrak.app",
+      "NHT4RV54Z7.com.spendtrak.app.preview",
+      "NHT4RV54Z7.com.spendtrak.app.dev"
+    ]
+  }
+}

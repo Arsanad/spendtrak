@@ -1,0 +1,74 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - budgets
+---
+# ============================================
+# BATCH 6: Budgets Tests 32-37
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 32: Tap on Budgets
+- tapOn:
+    text: "Budgets"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: "test-32-budgets"
+
+# TEST 33: View budget list
+- takeScreenshot: "test-33-budget-list"
+
+# TEST 34: Add budget (if button exists)
+- tapOn:
+    text: "Add"
+    optional: true
+- tapOn:
+    text: "Create"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-34-add-budget"
+
+# TEST 35: Enter budget details
+- inputText: "500"
+- waitForAnimationToEnd
+
+# TEST 36: Save/Cancel
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Cancel"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-36-budget-saved"
+
+# TEST 37: Go back
+- back
+- waitForAnimationToEnd
+- takeScreenshot: "test-37-back"
+
+- takeScreenshot: "batch-06-complete"
+

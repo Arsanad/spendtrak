@@ -1,0 +1,40 @@
+appId: com.spendtrak.app
+name: Subscriptions Tests
+tags: [subscriptions, critical]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Subscriptions Tab
+- tapOn:
+    id: "tab-subscriptions"
+- waitForAnimationToEnd
+- takeScreenshot: "11-subscriptions-tab"
+
+# Test 6.1: Subscriptions Screen
+- assertVisible:
+    id: "subscriptions-screen"
+
+# Test 6.2: Summary Card
+- assertVisible:
+    id: "subscriptions-summary"
+    optional: true
+
+# Test 6.3: Subscription List
+- assertVisible:
+    id: "subscription-item"
+    optional: true
+
+# Test 6.4: Potential Savings
+- assertVisible:
+    text: "Savings"
+    optional: true
+
+# Test 6.5: Pull to Refresh
+- swipe:
+    direction: DOWN
+    duration: 500
+- takeScreenshot: "12-subscriptions-refreshed"

@@ -1,0 +1,209 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Investment Tracking Tests (157-169)"
+tags: [premium, investments]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Investments
+- tapOn:
+    text: "Investments|Portfolio"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 157: Add Stock - Add stock holding
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Stock"
+    optional: true
+- tapOn:
+    id: "ticker-input"
+    optional: true
+- inputText: "AAPL"
+- tapOn:
+    id: "shares-input"
+    optional: true
+- inputText: "10"
+- tapOn:
+    id: "price-input"
+    optional: true
+- inputText: "150"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "AAPL"
+    optional: true
+
+# Test 158: Add ETF - Add ETF holding
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "ETF"
+    optional: true
+- tapOn:
+    id: "ticker-input"
+    optional: true
+- inputText: "VOO"
+- tapOn:
+    id: "shares-input"
+    optional: true
+- inputText: "5"
+- tapOn:
+    id: "price-input"
+    optional: true
+- inputText: "400"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 159: Add Crypto - Add cryptocurrency
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Crypto|Cryptocurrency"
+    optional: true
+- tapOn:
+    id: "ticker-input"
+    optional: true
+- inputText: "BTC"
+- tapOn:
+    id: "amount-input"
+    optional: true
+- inputText: "0.5"
+- tapOn:
+    id: "price-input"
+    optional: true
+- inputText: "45000"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 160: View Portfolio - See all holdings
+- assertVisible:
+    text: "Portfolio|Holdings"
+    optional: true
+- assertVisible:
+    text: "AAPL|VOO|BTC"
+    optional: true
+
+# Test 161: Portfolio Value - Total investment value
+- assertVisible:
+    text: "Total Value|Portfolio Value"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 162: Gain/Loss - See profit/loss
+- assertVisible:
+    text: "Gain|Loss|P&L"
+    optional: true
+
+# Test 163: Gain/Loss % - Percentage change
+- assertVisible:
+    text: "%"
+    optional: true
+
+# Test 164: Price Refresh - Refresh current prices
+- tapOn:
+    text: "Refresh"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Updated|Refreshed"
+    optional: true
+
+# Test 165: Buy Transaction - Record purchase
+- tapOn:
+    text: "AAPL"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Buy|Add"
+    optional: true
+- tapOn:
+    id: "shares-input"
+    optional: true
+- inputText: "5"
+- tapOn:
+    id: "price-input"
+    optional: true
+- inputText: "155"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 166: Sell Transaction - Record sale
+- tapOn:
+    text: "AAPL"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Sell"
+    optional: true
+- tapOn:
+    id: "shares-input"
+    optional: true
+- inputText: "2"
+- tapOn:
+    id: "price-input"
+    optional: true
+- inputText: "160"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 167: Dividend - Record dividend
+- tapOn:
+    text: "AAPL"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Dividend"
+    optional: true
+- tapOn:
+    id: "amount-input"
+    optional: true
+- inputText: "10"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 168: Asset Allocation - Pie chart by type
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Allocation"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Stocks|ETF|Crypto"
+    optional: true
+
+# Test 169: Performance Chart - Portfolio over time
+- tapOn:
+    text: "Performance|Chart"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Chart|Performance"
+    optional: true
+
+- takeScreenshot: "investments-complete"

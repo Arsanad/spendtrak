@@ -1,0 +1,45 @@
+appId: com.spendtrak.app
+name: Budgets Tests
+tags: [budgets, finance]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Settings then Budgets
+- tapOn:
+    id: "tab-settings"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Budgets"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "19-budgets-screen"
+
+# Test 10.1: Budget List
+- assertVisible:
+    id: "budget-item"
+    optional: true
+
+# Test 10.2: Add Budget Button
+- assertVisible:
+    text: "Add"
+    optional: true
+
+# Test 10.3: Budget Card
+- assertVisible:
+    id: "budget-card"
+    optional: true
+
+# Test 10.4: Progress Bar
+- assertVisible:
+    id: "budget-progress"
+    optional: true
+
+# Test 10.5: Back Navigation
+- tapOn:
+    text: "Back"
+    optional: true
+- takeScreenshot: "20-budgets-closed"

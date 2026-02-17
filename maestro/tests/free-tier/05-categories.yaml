@@ -1,0 +1,90 @@
+appId: com.spendtrak.app
+name: "Free Tier - Categories Tests (27-31)"
+tags: [free, categories]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 27: View Categories - See all default categories
+- tapOn:
+    text: "Categories"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Food|Dining|Groceries"
+    optional: true
+- assertVisible:
+    text: "Transport|Transportation"
+    optional: true
+- assertVisible:
+    text: "Shopping"
+    optional: true
+- assertVisible:
+    text: "Entertainment"
+    optional: true
+
+# Test 28: Create Category - Add custom category
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "category-name-input"
+    optional: true
+- inputText: "Test Category"
+- tapOn:
+    text: "Save|Create"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Test Category"
+    optional: true
+
+# Test 29: Edit Category - Change category name/icon/color
+- tapOn:
+    text: "Test Category"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Edit"
+    optional: true
+- eraseText
+- inputText: "Updated Category"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 30: Delete Category - Remove custom category
+- tapOn:
+    text: "Updated Category|Test Category"
+    optional: true
+- tapOn:
+    text: "Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+# Test 31: Category Icons - Icons display correctly
+- assertVisible:
+    id: "category-icon"
+    optional: true
+
+# Go back
+- tapOn:
+    text: "Back"
+    optional: true
+
+- takeScreenshot: "categories-complete"

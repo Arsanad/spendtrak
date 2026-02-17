@@ -1,0 +1,99 @@
+# SpendTrak E2E Test: Alerts Flow
+# Tests smart alerts, notifications, and alert actions
+
+appId: com.spendtrak.app
+
+---
+# Test: Alerts Flow
+
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Navigate to Alerts tab
+- tapOn:
+    id: "tab-alerts"
+    optional: true
+
+# Wait for alerts to load
+- waitForAnimationToEnd
+
+# Verify alerts screen
+- assertVisible:
+    text: "Alerts"
+    optional: true
+
+# Check if unread count badge is visible
+- assertVisible:
+    id: "unread-badge"
+    optional: true
+
+# Filter alerts by severity
+- tapOn:
+    text: "Critical"
+    optional: true
+
+# Wait for filter
+- waitForAnimationToEnd
+
+# Show all alerts
+- tapOn:
+    text: "All"
+    optional: true
+
+# Mark all as read
+- tapOn:
+    text: "Mark All Read"
+    optional: true
+
+# Wait for update
+- waitForAnimationToEnd
+
+# Tap on an alert to view details
+- tapOn:
+    id: "alert-item-0"
+    optional: true
+
+# Verify alert details
+- assertVisible:
+    text: "Alert Details"
+    optional: true
+
+# Take action on alert if available
+- tapOn:
+    text: "Take Action"
+    optional: true
+
+# Wait for action
+- waitForAnimationToEnd
+
+# Go back to alerts list
+- back
+
+# Dismiss an alert
+- swipe:
+    direction: LEFT
+    duration: 500
+    startPoint: 80%, 30%
+
+# Confirm dismiss
+- tapOn:
+    text: "Dismiss"
+    optional: true
+
+# Scroll to load more alerts
+- scroll:
+    direction: UP
+    duration: 1000
+
+# Wait for more to load
+- waitForAnimationToEnd
+
+# Pull to refresh
+- scroll:
+    direction: DOWN
+    duration: 500
+
+# Wait for refresh
+- waitForAnimationToEnd

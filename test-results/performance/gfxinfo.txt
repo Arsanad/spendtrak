@@ -1,0 +1,70 @@
+Applications Graphics Acceleration Info:
+Uptime: 238649851 Realtime: 848194350
+
+** Graphics info for pid 7760 [host.exp.exponent] **
+
+Stats since: 236974556678656ns
+Total frames rendered: 60065
+Janky frames: 59562 (99.16%)
+Janky frames (legacy): 59938 (99.79%)
+50th percentile: 44ms
+90th percentile: 53ms
+95th percentile: 53ms
+99th percentile: 61ms
+Number Missed Vsync: 17317
+Number High input latency: 42737
+Number Slow UI thread: 59561
+Number Slow bitmap uploads: 3491
+Number Slow issue draw commands: 31676
+Number Frame deadline missed: 59562
+Number Frame deadline missed (legacy): 17735
+HISTOGRAM: 5ms=1 6ms=1 7ms=3 8ms=25 9ms=27 10ms=12 11ms=7 12ms=1 13ms=0 14ms=0 15ms=3 16ms=8 17ms=4 18ms=0 19ms=0 20ms=2 21ms=20 22ms=14 23ms=3 24ms=2 25ms=3 26ms=5 27ms=3 28ms=3 29ms=20 30ms=49 31ms=137 32ms=723 34ms=1558 36ms=3138 38ms=4972 40ms=6033 42ms=7314 44ms=7022 46ms=6613 48ms=12768 53ms=6844 57ms=1896 61ms=477 65ms=123 69ms=52 73ms=26 77ms=19 81ms=14 85ms=18 89ms=10 93ms=11 97ms=11 101ms=6 105ms=4 109ms=7 113ms=8 117ms=3 121ms=1 125ms=3 129ms=2 133ms=6 150ms=20 200ms=6 250ms=1 300ms=0 350ms=2 400ms=1 450ms=0 500ms=0 550ms=0 600ms=0 650ms=0 700ms=0 750ms=0 800ms=0 850ms=0 900ms=0 950ms=0 1000ms=0 1050ms=0 1100ms=0 1150ms=0 1200ms=0 1250ms=0 1300ms=0 1350ms=0 1400ms=0 1450ms=0 1500ms=0 1550ms=0 1600ms=0 1650ms=0 1700ms=0 1750ms=0 1800ms=0 1850ms=0 1900ms=0 1950ms=0 2000ms=0 2050ms=0 2100ms=0 2150ms=0 2200ms=0 2250ms=0 2300ms=0 2350ms=0 2400ms=0 2450ms=0 2500ms=0 2550ms=0 2600ms=0 2650ms=0 2700ms=0 2750ms=0 2800ms=0 2850ms=0 2900ms=0 2950ms=0 3000ms=0 3050ms=0 3100ms=0 3150ms=0 3200ms=0 3250ms=0 3300ms=0 3350ms=0 3400ms=0 3450ms=0 3500ms=0 3550ms=0 3600ms=0 3650ms=0 3700ms=0 3750ms=0 3800ms=0 3850ms=0 3900ms=0 3950ms=0 4000ms=0 4050ms=0 4100ms=0 4150ms=0 4200ms=0 4250ms=0 4300ms=0 4350ms=0 4400ms=0 4450ms=0 4500ms=0 4550ms=0 4600ms=0 4650ms=0 4700ms=0 4750ms=0 4800ms=0 4850ms=0 4900ms=0 4950ms=0
+50th gpu percentile: 8ms
+90th gpu percentile: 10ms
+95th gpu percentile: 11ms
+99th gpu percentile: 14ms
+GPU HISTOGRAM: 1ms=146 2ms=45 3ms=38 4ms=2565 5ms=2037 6ms=5281 7ms=5055 8ms=32101 9ms=3099 10ms=6307 11ms=1520 12ms=820 13ms=326 14ms=241 15ms=126 16ms=126 17ms=79 18ms=48 19ms=19 20ms=16 21ms=10 22ms=1 23ms=8 24ms=9 25ms=9 4950ms=33
+Pipeline=Skia (OpenGL)
+CPU Caches:
+  Glyph Cache: 1.73 MB (1 entry)
+  Glyph Count: 339 
+Total CPU memory usage:
+  1809851 bytes, 1.73 MB (0.00 bytes is purgeable)
+GPU Caches:
+  Other:
+    Other: 28.54 KB (1 entry)
+  Image:
+    Texture: 2.57 MB (102 entries)
+  Scratch:
+    Texture: 2.00 MB (5 entries)
+    RenderTarget: 3.70 MB (74 entries)
+    Buffer Object: 78.00 KB (2 entries)
+Layer Info:
+    GlLayer size 113x112
+  Layers Total          49.44 KB (numLayers = 1)
+Total GPU memory usage:
+  8788892 bytes, 8.38 MB (0.00 bytes is purgeable)
+
+Profile data in ms:
+
+	host.exp.exponent/host.exp.exponent.experience.HomeActivity/android.view.ViewRootImpl@45be84d (visibility=8)
+	host.exp.exponent/host.exp.exponent.experience.ExperienceActivity/android.view.ViewRootImpl@4778f02 (visibility=0)
+	host.exp.exponent/host.exp.exponent.experience.ExperienceActivity/android.view.ViewRootImpl@206b013 (visibility=0)
+View hierarchy:
+
+  host.exp.exponent/host.exp.exponent.experience.HomeActivity/android.view.ViewRootImpl@45be84d
+  161 views, 249.59 kB of render nodes
+
+  host.exp.exponent/host.exp.exponent.experience.ExperienceActivity/android.view.ViewRootImpl@4778f02
+  885 views, 1647.23 kB of render nodes
+
+  host.exp.exponent/host.exp.exponent.experience.ExperienceActivity/android.view.ViewRootImpl@206b013
+  60 views, 106.27 kB of render nodes
+
+
+Total ViewRootImpl   : 3
+Total attached Views : 1106
+Total RenderNode     : 2003.09 kB (used) / 5951.16 kB (capacity)
+
+  ProcessConfig={1.0 ?mcc?mnc [en_GB,ar_AE] ldltr sw384dp w384dp h781dp 300dpi nrml long port night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1600) mAppBounds=Rect(0, 45 - 720, 1510) mMaxBounds=Rect(0, 0 - 720, 1600) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mFreeformTaskPinningState=unpinned} s.195 fontWeightAdjustment=0 ff=0 bf=0 bts=0 enb/d themeSeq=0}
+  Application ResourcesConfig={1.0 ?mcc?mnc [en_GB,ar_AE] ldltr sw384dp w384dp h781dp 300dpi nrml long port night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1600) mAppBounds=Rect(0, 45 - 720, 1510) mMaxBounds=Rect(0, 0 - 720, 1600) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mPopOver=off mFreeformTaskPinningState=unpinned} s.195 fontWeightAdjustment=0 ff=0 bf=0 bts=0 enb/d themeSeq=0}

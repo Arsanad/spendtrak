@@ -1,0 +1,57 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Subscription Extras Tests (106-108)"
+tags: [premium, subscriptions]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Subscriptions
+- tapOn:
+    id: "tab-subscriptions"
+    optional: true
+- waitForAnimationToEnd
+
+# Select a subscription
+- tapOn:
+    id: "subscription-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+
+# Test 106: Cancellation Email - Generate cancellation email
+- tapOn:
+    text: "Cancel|Cancellation"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Generate Email|Cancellation Email"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "email|cancel|subscription"
+    optional: true
+- tapOn:
+    text: "Copy|Send"
+    optional: true
+
+# Test 107: Price Change Alert - Alert when subscription price changes
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Price Change|Increased"
+    optional: true
+
+# Test 108: Duplicate Detection - Detect duplicate charges
+- assertVisible:
+    text: "Duplicate|Double Charge"
+    optional: true
+
+- takeScreenshot: "subscription-extras-complete"

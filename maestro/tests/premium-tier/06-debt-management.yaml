@@ -1,0 +1,141 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Debt Management Tests (109-117)"
+tags: [premium, debt]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Debt section
+- tapOn:
+    text: "Debt|Loans"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 109: Add Debt - Add credit card debt
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Credit Card"
+    optional: true
+- tapOn:
+    id: "debt-name-input"
+    optional: true
+- inputText: "Chase Credit Card"
+- tapOn:
+    id: "debt-balance-input"
+    optional: true
+- inputText: "5000"
+- tapOn:
+    id: "debt-rate-input"
+    optional: true
+- inputText: "18.99"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 110: Add Loan - Add auto/student loan
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Student Loan|Auto Loan"
+    optional: true
+- tapOn:
+    id: "debt-name-input"
+    optional: true
+- inputText: "Student Loan"
+- tapOn:
+    id: "debt-balance-input"
+    optional: true
+- inputText: "25000"
+- tapOn:
+    id: "debt-rate-input"
+    optional: true
+- inputText: "5.5"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 111: View Debts - See all debts
+- assertVisible:
+    text: "Debts|Loans"
+    optional: true
+- assertVisible:
+    text: "Chase Credit Card|Student Loan"
+    optional: true
+
+# Test 112: Record Payment - Log debt payment
+- tapOn:
+    text: "Chase Credit Card"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Payment|Add Payment"
+    optional: true
+- tapOn:
+    id: "payment-amount-input"
+    optional: true
+- inputText: "500"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 113: Debt Summary - Total debt, interest, etc.
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Total Debt|Summary"
+    optional: true
+- assertVisible:
+    text: "Interest"
+    optional: true
+
+# Test 114: Snowball Strategy - Calculate snowball payoff
+- tapOn:
+    text: "Strategy|Payoff"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Snowball"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Snowball"
+    optional: true
+
+# Test 115: Avalanche Strategy - Calculate avalanche payoff
+- tapOn:
+    text: "Avalanche"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Avalanche"
+    optional: true
+
+# Test 116: Debt-Free Date - See projected payoff date
+- assertVisible:
+    text: "Debt-Free|Payoff Date"
+    optional: true
+
+# Test 117: Compare Strategies - Compare snowball vs avalanche
+- tapOn:
+    text: "Compare"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Snowball|Avalanche"
+    optional: true
+
+- takeScreenshot: "debt-management-complete"

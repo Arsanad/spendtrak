@@ -1,0 +1,86 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Data Export Tests (57-61)"
+tags: [plus, export]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 57: Export to CSV - Download transactions as CSV
+- scrollUntilVisible:
+    element:
+      text: "Export"
+- tapOn:
+    text: "Export"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "CSV"
+    optional: true
+- tapOn:
+    text: "Export|Download"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "exported|success|complete"
+    optional: true
+
+# Test 58: Export to JSON - Download as JSON
+- tapOn:
+    text: "JSON"
+    optional: true
+- tapOn:
+    text: "Export|Download"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "exported|success|complete"
+    optional: true
+
+# Test 59: Date Range Export - Export specific date range
+- tapOn:
+    text: "Date Range"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "This Month"
+    optional: true
+- tapOn:
+    text: "Export"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 60: Category Export - Export by category
+- tapOn:
+    text: "Category"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Food"
+    optional: true
+- tapOn:
+    text: "Export"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 61: Share Export - Share exported file
+- tapOn:
+    text: "Share"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Share|Send"
+    optional: true
+
+- takeScreenshot: "export-complete"

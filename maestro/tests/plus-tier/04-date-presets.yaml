@@ -1,0 +1,111 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Date Presets Tests (66-70)"
+tags: [plus, date-presets]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Transactions
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+
+# Open Filter
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 66: This Week - Filter by this week
+- tapOn:
+    text: "This Week"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "This Week"
+    optional: true
+- tapOn:
+    text: "Clear|Reset"
+    optional: true
+
+# Test 67: Last Month - Filter by last month
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Last Month"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Last Month"
+    optional: true
+- tapOn:
+    text: "Clear|Reset"
+    optional: true
+
+# Test 68: Last 30 Days - Filter by last 30 days
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Last 30 Days|30 Days"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Clear|Reset"
+    optional: true
+
+# Test 69: Custom Range - Set custom date range
+- tapOn:
+    text: "Filter"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Custom|Custom Range"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Start Date"
+    optional: true
+- tapOn:
+    text: "1"
+    optional: true
+- tapOn:
+    text: "OK|Done"
+    optional: true
+- tapOn:
+    text: "End Date"
+    optional: true
+- tapOn:
+    text: "15"
+    optional: true
+- tapOn:
+    text: "OK|Done"
+    optional: true
+- tapOn:
+    text: "Apply"
+    optional: true
+
+# Test 70: Save Custom Preset - Save custom range as preset
+- tapOn:
+    text: "Save Preset|Save as Preset"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "preset-name-input"
+    optional: true
+- inputText: "My Custom Range"
+- tapOn:
+    text: "Save"
+    optional: true
+
+- takeScreenshot: "date-presets-complete"

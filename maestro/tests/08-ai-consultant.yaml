@@ -1,0 +1,47 @@
+appId: com.spendtrak.app
+name: AI Consultant Tests
+tags: [ai, chatbot]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Open AI Consultant
+- tapOn:
+    id: "ai-button"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "15-ai-modal-opened"
+
+# Test 8.1: AI Modal
+- assertVisible:
+    id: "ai-modal"
+    optional: true
+
+# Test 8.2: Disclaimer
+- assertVisible:
+    text: "AI"
+    optional: true
+
+# Test 8.3: Chat Input
+- assertVisible:
+    id: "chat-input"
+    optional: true
+
+# Test 8.4: Suggestion Chips
+- assertVisible:
+    id: "suggestion-chip"
+    optional: true
+
+# Test 8.5: Send Button
+- assertVisible:
+    id: "send-button"
+    optional: true
+
+# Test 8.6: Close Button
+- tapOn:
+    id: "close-button"
+    optional: true
+- takeScreenshot: "16-ai-modal-closed"

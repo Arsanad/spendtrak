@@ -1,0 +1,51 @@
+appId: com.spendtrak.app
+name: "SpendTrak Complete 180 Test Suite"
+tags: [full, regression, all]
+---
+
+# ===========================================
+# INITIAL LOGIN (Required for all tests)
+# ===========================================
+- runFlow: "helpers/dev-login.yaml"
+
+# ===========================================
+# FREE TIER TESTS (1-51)
+# ===========================================
+- runFlow: "tests/free-tier/02-dashboard.yaml"
+- runFlow: "tests/free-tier/03-transactions.yaml"
+- runFlow: "tests/free-tier/04-receipt-scanning.yaml"
+- runFlow: "tests/free-tier/05-categories.yaml"
+- runFlow: "tests/free-tier/06-budgets.yaml"
+- runFlow: "tests/free-tier/07-goals.yaml"
+- runFlow: "tests/free-tier/08-search-filter.yaml"
+- runFlow: "tests/free-tier/09-settings.yaml"
+
+# ===========================================
+# PLUS TIER TESTS (52-86)
+# ===========================================
+- runFlow: "tests/plus-tier/01-transaction-splits.yaml"
+- runFlow: "tests/plus-tier/02-data-export.yaml"
+- runFlow: "tests/plus-tier/03-daily-spending-limit.yaml"
+- runFlow: "tests/plus-tier/04-date-presets.yaml"
+- runFlow: "tests/plus-tier/05-budget-rollover.yaml"
+- runFlow: "tests/plus-tier/06-subscriptions.yaml"
+- runFlow: "tests/plus-tier/07-alerts.yaml"
+
+# ===========================================
+# PREMIUM TIER TESTS (87-180)
+# ===========================================
+- runFlow: "tests/premium-tier/01-ai-consultant.yaml"
+- runFlow: "tests/premium-tier/02-financial-health.yaml"
+- runFlow: "tests/premium-tier/03-card-optimizer.yaml"
+- runFlow: "tests/premium-tier/04-missed-rewards.yaml"
+- runFlow: "tests/premium-tier/05-subscription-extras.yaml"
+- runFlow: "tests/premium-tier/06-debt-management.yaml"
+- runFlow: "tests/premium-tier/07-income-tracking.yaml"
+- runFlow: "tests/premium-tier/08-net-worth.yaml"
+- runFlow: "tests/premium-tier/09-household-sharing.yaml"
+- runFlow: "tests/premium-tier/10-bill-calendar.yaml"
+- runFlow: "tests/premium-tier/11-zero-based-budget.yaml"
+- runFlow: "tests/premium-tier/12-investments.yaml"
+- runFlow: "tests/premium-tier/13-gamification.yaml"
+
+- takeScreenshot: "all-180-tests-complete"

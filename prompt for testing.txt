@@ -1,0 +1,1738 @@
+Here's the complete testing setup. Follow this document step by step:
+
+Find SpendTrak project in Downloads folder
+Install Maestro
+Start Expo dev server (npx expo start)
+Connect my Samsung Galaxy A03 via Expo Go
+Create all 16 batched test files
+Run tests batch by batch
+When tests fail → Fix the code → Hot reload applies in 2 seconds → Re-run
+After all pass, build release APK ONCE for final verification
+Generate test report
+
+The key is using hot reload - don't rebuild the APK until the very end!   # SpendTrak Automated Testing - COMPLETE PROMPT
+
+## PROJECT CONTEXT
+
+You are testing **SpendTrak**, an Expo/React Native personal finance app with 180 features across 3 tiers (Free, Plus, Premium). The app is located in the **Downloads folder**.
+
+**Tech Stack:**
+- Expo / React Native
+- TypeScript
+- Zustand (state management)
+- Supabase (backend)
+
+**Testing Device:** Samsung Galaxy A03 (physical Android phone) connected via USB with USB debugging enabled.
+
+**Key Info:** The app has a **"Dev Sign In"** button on the login screen that bypasses Google OAuth - use this for testing.
+
+---
+
+## YOUR MISSION
+
+1. Set up Maestro testing framework
+2. Start Expo in dev mode (for hot reload)
+3. Create 16 batched test files covering all 180 features
+4. Run tests on the connected Samsung phone
+5. When tests fail → Fix the code → Hot reload (2 sec) → Re-run
+6. Continue until ALL 180 tests pass
+7. Build release APK once at the end for final verification
+8. Generate test report
+
+---
+
+## PHASE 1: ENVIRONMENT SETUP
+
+### 1.1 Find the SpendTrak Project
+```bash
+# Find the project
+find ~/Downloads -name "app.json" 2>/dev/null
+find ~/Downloads -name "package.json" -exec grep -l "expo" {} \; 2>/dev/null
+ls -la ~/Downloads/
+
+# Once found, cd into it
+cd ~/Downloads/[SPENDTRAK_FOLDER]
+```
+
+### 1.2 Install Maestro
+```bash
+# Install Maestro CLI
+curl -Ls "https://get.maestro.mobile.dev" | bash
+
+# Add to PATH
+export PATH="$PATH:$HOME/.maestro/bin"
+
+# Verify
+maestro --version
+```
+
+### 1.3 Verify Phone Connection
+```bash
+# Check ADB sees the Samsung
+adb devices
+
+# Should show:
+# List of devices attached
+# XXXXXXXX    device
+
+# If "unauthorized", user needs to tap "Allow" on phone
+```
+
+### 1.4 Get App Package Name
+```bash
+# From app.json or app.config.js
+cat app.json | grep -A5 "android"
+# Look for "package": "com.xxxxx.spendtrak" or similar
+```
+
+### 1.5 Install Dependencies
+```bash
+npm install
+```
+
+### 1.6 Start Expo Dev Server (HOT RELOAD MODE)
+```bash
+# Clear cache and start
+npx expo start --clear
+
+# This enables hot reload - code changes apply in 2 seconds!
+```
+
+### 1.7 Connect Phone to Expo
+**Option A - Expo Go (if not using native modules):**
+- Install "Expo Go" from Play Store on Samsung
+- Phone and computer on SAME WiFi network
+- Scan QR code from terminal
+
+**Option B - Development build (if using native modules):**
+```bash
+npx expo run:android
+```
+
+---
+
+## PHASE 2: CREATE TEST FOLDER STRUCTURE
+
+```bash
+mkdir -p spendtrak-tests/flows
+mkdir -p spendtrak-tests/helpers
+mkdir -p spendtrak-tests/reports
+mkdir -p spendtrak-tests/screenshots
+```
+
+---
+
+## PHASE 3: CREATE HELPER FILES
+
+### File: `spendtrak-tests/helpers/login.yaml`
+```yaml
+appId: ${APP_ID}
+---
+# Wait for app to fully load
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Dev Sign In|Sign In|Get Started|Welcome"
+    timeout: 25000
+
+# Use Dev Sign In to bypass OAuth
+- runFlow:
+    when:
+      visible: "Dev Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "Dashboard|Home"
+          timeout: 20000
+
+# If already logged in, do nothing
+- runFlow:
+    when:
+      visible: "Dashboard|Home"
+    commands:
+      - assertVisible: "Dashboard|Home"
+```
+
+### File: `spendtrak-tests/config.yaml`
+```yaml
+# UPDATE THIS with actual package name from app.json
+appId: com.spendtrak.app
+
+env:
+  APP_ID: com.spendtrak.app
+```
+
+---
+
+## PHASE 4: CREATE ALL 16 BATCHED TEST FILES
+
+### File: `spendtrak-tests/flows/batch-01-auth.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - auth
+  - free
+---
+# ============================================
+# BATCH 1: AUTHENTICATION (Tests 1-6)
+# ============================================
+
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Sign In|Dev Sign In|Get Started|Welcome"
+    timeout: 30000
+
+# TEST 1: Sign Up UI Exists
+- assertVisible: 
+    text: "Sign Up|Create Account|Get Started|Register"
+    optional: true
+- takeScreenshot: "test-01-signup"
+
+# TEST 2: Sign In UI Exists
+- assertVisible:
+    text: "Sign In|Log In|Login"
+- takeScreenshot: "test-02-signin"
+
+# TEST 3: Google Sign In Button
+- assertVisible:
+    text: "Google|Continue with Google"
+    optional: true
+- takeScreenshot: "test-03-google"
+
+# TEST 4: Forgot Password Link
+- assertVisible:
+    text: "Forgot|Reset"
+    optional: true
+- takeScreenshot: "test-04-forgot"
+
+# TEST 5: Dev Sign In Works
+- tapOn: "Dev Sign In|DEV|Development|Skip"
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 25000
+- assertVisible: "Dashboard|Home"
+- takeScreenshot: "test-05-dev-signin"
+
+# TEST 6: Session Persistence
+- stopApp
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Dashboard|Home|Sign In"
+    timeout: 25000
+- takeScreenshot: "test-06-session"
+
+# ✅ BATCH 1 COMPLETE: 6 tests
+```
+
+### File: `spendtrak-tests/flows/batch-02-dashboard.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - dashboard
+  - free
+---
+# ============================================
+# BATCH 2: DASHBOARD (Tests 7-11)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+# Auto-login if needed
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          visible: "Dashboard|Home"
+          timeout: 20000
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TEST 7: Dashboard Visible
+- assertVisible: "Dashboard|Home"
+- takeScreenshot: "test-07-dashboard"
+
+# TEST 8: Spending/Balance Display
+- assertVisible:
+    text: "\\$|Spending|Balance|Total|AED|USD"
+    optional: true
+- takeScreenshot: "test-08-spending"
+
+# TEST 9: Recent Transactions
+- assertVisible:
+    text: "Recent|Transaction|Activity"
+    optional: true
+- takeScreenshot: "test-09-recent"
+
+# TEST 10: Quick Action Buttons
+- assertVisible:
+    text: "Add|\\+|New|Scan"
+- takeScreenshot: "test-10-actions"
+
+# TEST 11: Budget Overview
+- scroll:
+    direction: DOWN
+- assertVisible:
+    text: "Budget|Budgets"
+    optional: true
+- takeScreenshot: "test-11-budgets"
+
+# ✅ BATCH 2 COMPLETE: 5 tests
+```
+
+### File: `spendtrak-tests/flows/batch-03-transactions.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - transactions
+  - free
+---
+# ============================================
+# BATCH 3: TRANSACTIONS (Tests 12-21)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TEST 12: Add Expense
+- tapOn: "Add|\\+|New"
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Expense|Income"
+    commands:
+      - tapOn: "Expense"
+      - waitForAnimationToEnd
+
+# Enter amount (try multiple selectors)
+- tapOn:
+    id: "amount-input"
+    optional: true
+- tapOn:
+    text: "Amount|0.00|Enter"
+    optional: true
+- inputText: "25.50"
+- hideKeyboard
+
+# Enter merchant (try multiple selectors)
+- tapOn:
+    id: "merchant-input"
+    optional: true
+- tapOn:
+    text: "Merchant|Description|Name|Note"
+    optional: true
+- inputText: "Test Coffee Shop"
+- hideKeyboard
+
+# Save
+- tapOn: "Save|Add|Done|Submit|Confirm|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-12-add-expense"
+
+# TEST 13: Add Income
+- tapOn: "Add|\\+|New"
+- waitForAnimationToEnd
+- tapOn: "Income"
+- waitForAnimationToEnd
+- tapOn:
+    id: "amount-input"
+    optional: true
+- tapOn:
+    text: "Amount|0.00"
+    optional: true
+- inputText: "1000"
+- hideKeyboard
+- tapOn: "Save|Add|Done|Submit|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-13-add-income"
+
+# TEST 14-20: Transaction List
+- tapOn: "Transactions|History|All"
+- waitForAnimationToEnd
+- takeScreenshot: "test-14-list"
+
+# Tap first transaction for details
+- tapOn:
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-16-details"
+
+# Go back
+- tapOn: "Back|←|Close|✕"
+  optional: true
+- waitForAnimationToEnd
+
+# TEST 21: Pull to Refresh
+- swipe:
+    direction: DOWN
+    duration: 500
+- waitForAnimationToEnd
+- takeScreenshot: "test-21-refresh"
+
+# Return to Dashboard
+- tapOn: "Home|Dashboard"
+  optional: true
+
+# ✅ BATCH 3 COMPLETE: 10 tests
+```
+
+### File: `spendtrak-tests/flows/batch-04-receipts.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - receipts
+  - free
+---
+# ============================================
+# BATCH 4: RECEIPT SCANNING (Tests 22-26)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TEST 22: Open Camera/Scanner
+- tapOn: "Scan|Camera|Receipt|📷"
+- waitForAnimationToEnd
+
+# Handle permission if shown
+- runFlow:
+    when:
+      visible: "Allow|While using|Permission"
+    commands:
+      - tapOn: "Allow|While using"
+      - waitForAnimationToEnd
+
+- takeScreenshot: "test-22-camera"
+
+# TEST 23-26: Camera screen verification
+- assertVisible:
+    text: "Camera|Capture|Take|Photo|Scan"
+    optional: true
+- takeScreenshot: "test-23-26-camera-screen"
+
+# Go back
+- tapOn: "Back|Cancel|Close|✕"
+- waitForAnimationToEnd
+
+# ✅ BATCH 4 COMPLETE: 5 tests
+```
+
+### File: `spendtrak-tests/flows/batch-05-categories.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - categories
+  - free
+---
+# ============================================
+# BATCH 5: CATEGORIES (Tests 27-31)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# Navigate to Settings > Categories
+- tapOn: "Settings|Profile|Menu|⚙️|More"
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element: "Categories"
+    direction: DOWN
+    timeout: 10000
+- tapOn: "Categories"
+- waitForAnimationToEnd
+
+# TEST 27: View Categories
+- assertVisible: "Food|Transport|Shopping|Entertainment|Bills|Health"
+- takeScreenshot: "test-27-categories"
+
+# TEST 28: Create Category
+- tapOn: "Add|\\+|New|Create"
+- waitForAnimationToEnd
+- tapOn:
+    id: "category-name"
+    optional: true
+- inputText: "Test Category"
+- hideKeyboard
+- tapOn: "Save|Create|Done|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-28-create"
+
+# TEST 29: Edit Category
+- tapOn: "Test Category"
+- waitForAnimationToEnd
+- tapOn: "Edit|✏️"
+  optional: true
+- waitForAnimationToEnd
+- clearText
+- inputText: "Updated Category"
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-29-edit"
+
+# TEST 30: Delete Category
+- tapOn: "Updated Category"
+- waitForAnimationToEnd
+- tapOn: "Delete|Remove|🗑️"
+- waitForAnimationToEnd
+- tapOn: "Confirm|Yes|Delete|OK"
+- waitForAnimationToEnd
+- takeScreenshot: "test-30-delete"
+
+# TEST 31: Category Icons
+- takeScreenshot: "test-31-icons"
+
+# Go back
+- tapOn: "Back|←"
+- tapOn: "Back|←"
+  optional: true
+
+# ✅ BATCH 5 COMPLETE: 5 tests
+```
+
+### File: `spendtrak-tests/flows/batch-06-budgets.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - budgets
+  - free
+---
+# ============================================
+# BATCH 6: BUDGETS (Tests 32-37)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# Navigate to Budgets
+- tapOn: "Budgets|Budget"
+- waitForAnimationToEnd
+
+# TEST 32: Create Budget
+- tapOn: "Add|\\+|Create|New"
+- waitForAnimationToEnd
+- tapOn: "Category|Select"
+  optional: true
+- tapOn: "Food|Groceries|Dining"
+- waitForAnimationToEnd
+- tapOn:
+    id: "budget-amount"
+    optional: true
+- tapOn:
+    text: "Amount|0"
+    optional: true
+- inputText: "500"
+- hideKeyboard
+- tapOn: "Save|Create|Done|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-32-create-budget"
+
+# TEST 33: View Budget Progress
+- assertVisible: "Food|500|progress|spent|remaining"
+- takeScreenshot: "test-33-progress"
+
+# TEST 34: Edit Budget
+- tapOn: "Food"
+- waitForAnimationToEnd
+- tapOn: "Edit|✏️"
+  optional: true
+- waitForAnimationToEnd
+- clearText
+  optional: true
+- inputText: "600"
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-34-edit"
+
+# Go back
+- tapOn: "Back|←"
+  optional: true
+- waitForAnimationToEnd
+
+# TEST 35: Delete Budget
+- tapOn: "Food"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "Delete|Remove|🗑️"
+- tapOn: "Confirm|Yes|Delete|OK"
+- waitForAnimationToEnd
+- takeScreenshot: "test-35-delete"
+
+# TEST 36-37: Budget Alerts (create new budget for testing)
+- tapOn: "Add|\\+|Create"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-36-37-alerts"
+
+# Return to Dashboard
+- tapOn: "Home|Dashboard"
+  optional: true
+
+# ✅ BATCH 6 COMPLETE: 6 tests
+```
+
+### File: `spendtrak-tests/flows/batch-07-goals.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - goals
+  - free
+---
+# ============================================
+# BATCH 7: GOALS (Tests 38-42)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# Navigate to Goals
+- tapOn: "Goals|Savings|Targets"
+- waitForAnimationToEnd
+
+# TEST 38: Create Goal
+- tapOn: "Add|\\+|Create|New"
+- waitForAnimationToEnd
+- tapOn:
+    id: "goal-name"
+    optional: true
+- inputText: "Emergency Fund"
+- hideKeyboard
+- tapOn:
+    id: "target-amount"
+    optional: true
+- tapOn:
+    text: "Target|Amount|0"
+    optional: true
+- inputText: "10000"
+- hideKeyboard
+- tapOn: "Save|Create|Done|✓"
+- waitForAnimationToEnd
+- assertVisible: "Emergency Fund"
+- takeScreenshot: "test-38-create-goal"
+
+# TEST 39: Goal Progress
+- assertVisible: "progress|%|0"
+- takeScreenshot: "test-39-progress"
+
+# TEST 40: Add Contribution
+- tapOn: "Emergency Fund"
+- waitForAnimationToEnd
+- tapOn: "Add|Contribute|\\+|Deposit"
+- waitForAnimationToEnd
+- inputText: "500"
+- hideKeyboard
+- tapOn: "Save|Add|Done|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-40-contribution"
+
+# TEST 41: Edit Goal
+- tapOn: "Edit|✏️"
+  optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "target-amount"
+    optional: true
+- clearText
+  optional: true
+- inputText: "15000"
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+- waitForAnimationToEnd
+- takeScreenshot: "test-41-edit"
+
+# Go back
+- tapOn: "Back|←"
+  optional: true
+- waitForAnimationToEnd
+
+# TEST 42: Delete Goal
+- tapOn: "Emergency Fund"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "Delete|Remove|🗑️"
+- tapOn: "Confirm|Yes|Delete|OK"
+- waitForAnimationToEnd
+- takeScreenshot: "test-42-delete"
+
+# Return to Dashboard
+- tapOn: "Home|Dashboard"
+  optional: true
+
+# ✅ BATCH 7 COMPLETE: 5 tests
+```
+
+### File: `spendtrak-tests/flows/batch-08-settings.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - settings
+  - free
+---
+# ============================================
+# BATCH 8: SEARCH, FILTER & SETTINGS (Tests 43-51)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 43-47: Search & Filter
+- tapOn: "Transactions|History"
+- waitForAnimationToEnd
+
+# Search
+- tapOn: "Search|🔍"
+  optional: true
+- inputText: "Coffee"
+  optional: true
+- hideKeyboard
+- takeScreenshot: "test-43-search"
+- tapOn: "Clear|✕|Cancel"
+  optional: true
+
+# Filter
+- tapOn: "Filter|⚙️"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-44-47-filter"
+- tapOn: "Close|Cancel|Done|Apply|Back"
+  optional: true
+- waitForAnimationToEnd
+
+# Navigate to Settings
+- tapOn: "Settings|Profile|⚙️|More"
+- waitForAnimationToEnd
+
+# TEST 48: Profile Settings
+- tapOn: "Profile|Account|User"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-48-profile"
+- tapOn: "Back|←"
+  optional: true
+- waitForAnimationToEnd
+
+# TEST 49: Currency
+- scrollUntilVisible:
+    element: "Currency"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- tapOn: "Currency"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-49-currency"
+- tapOn: "Back|←|Done|USD|AED"
+  optional: true
+- waitForAnimationToEnd
+
+# TEST 50: Theme
+- scrollUntilVisible:
+    element: "Theme|Dark|Appearance"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- tapOn: "Theme|Dark Mode|Appearance"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-50-theme"
+- tapOn: "Back|←"
+  optional: true
+
+# TEST 51: Notifications
+- scrollUntilVisible:
+    element: "Notification"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- tapOn: "Notifications"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-51-notifications"
+
+# ✅ BATCH 8 COMPLETE: 9 tests (FREE TIER COMPLETE!)
+```
+
+### File: `spendtrak-tests/flows/batch-09-plus-splits.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - plus
+  - splits
+  - export
+---
+# ============================================
+# BATCH 9: PLUS - Splits, Export, Daily Limit (Tests 52-65)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 52-56: Transaction Splits
+- tapOn: "Transactions|History"
+- waitForAnimationToEnd
+
+# Add transaction to split
+- tapOn: "Add|\\+"
+- waitForAnimationToEnd
+- tapOn: "Expense"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "100"
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+- waitForAnimationToEnd
+
+# Try to split
+- tapOn:
+    index: 0
+- waitForAnimationToEnd
+- tapOn: "Split"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-52-56-splits"
+- tapOn: "Cancel|Back|Close"
+  optional: true
+- waitForAnimationToEnd
+
+# TESTS 57-61: Export
+- tapOn: "Settings|⚙️"
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element: "Export"
+    direction: DOWN
+    timeout: 10000
+- tapOn: "Export|Export Data"
+- waitForAnimationToEnd
+- takeScreenshot: "test-57-61-export"
+- tapOn: "CSV"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-57-csv"
+- tapOn: "Back|Cancel|Close"
+  optional: true
+
+# TESTS 62-65: Daily Limit
+- scrollUntilVisible:
+    element: "Daily Limit|Daily Spending|Safe to Spend"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- tapOn: "Daily Limit|Daily Spending"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "50"
+  optional: true
+- hideKeyboard
+- takeScreenshot: "test-62-65-daily-limit"
+
+# ✅ BATCH 9 COMPLETE: 14 tests
+```
+
+### File: `spendtrak-tests/flows/batch-10-plus-subs.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - plus
+  - subscriptions
+  - alerts
+---
+# ============================================
+# BATCH 10: PLUS - Subscriptions, Alerts (Tests 66-86)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 66-70: Date Presets (in filters)
+- tapOn: "Transactions"
+- waitForAnimationToEnd
+- tapOn: "Filter"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "This Week|Last Month|Last 30|Custom"
+  optional: true
+- takeScreenshot: "test-66-70-presets"
+- tapOn: "Apply|Done|Close|Cancel"
+  optional: true
+- waitForAnimationToEnd
+
+# TESTS 71-74: Budget Rollover
+- tapOn: "Budgets"
+- waitForAnimationToEnd
+- tapOn: "Add|\\+"
+  optional: true
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element: "Rollover"
+    direction: DOWN
+    timeout: 5000
+    optional: true
+- takeScreenshot: "test-71-74-rollover"
+- tapOn: "Cancel|Back"
+  optional: true
+- waitForAnimationToEnd
+
+# TESTS 75-81: Subscriptions
+- tapOn: "Subscriptions|Recurring"
+- waitForAnimationToEnd
+- takeScreenshot: "test-75-subscriptions"
+
+# Add subscription
+- tapOn: "Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "Netflix"
+  optional: true
+- hideKeyboard
+- tapOn:
+    text: "Amount|Price"
+    optional: true
+- inputText: "15.99"
+  optional: true
+- hideKeyboard
+- tapOn: "Monthly"
+  optional: true
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-76-81-subs"
+
+# TESTS 82-86: Alerts
+- tapOn: "Alerts|Notifications|🔔"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-82-86-alerts"
+
+# ✅ BATCH 10 COMPLETE: 21 tests (PLUS TIER COMPLETE!)
+```
+
+### File: `spendtrak-tests/flows/batch-11-premium-ai.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - premium
+  - ai
+---
+# ============================================
+# BATCH 11: PREMIUM - AI Consultant, Health Score (Tests 87-95)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 87-92: AI Financial Consultant
+- tapOn: "AI|Consultant|Chat|Assistant|🤖"
+- waitForAnimationToEnd
+- takeScreenshot: "test-87-ai-open"
+
+# Send message
+- tapOn:
+    id: "chat-input"
+    optional: true
+- tapOn:
+    text: "Ask|Type|Message"
+    optional: true
+- inputText: "How much did I spend on food?"
+- hideKeyboard
+- tapOn: "Send|➤|Submit"
+  optional: true
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "food|spent|spending|\\$|analysis|I"
+    timeout: 30000
+    optional: true
+- takeScreenshot: "test-88-92-ai-response"
+
+# Go back
+- tapOn: "Back|←|Close"
+  optional: true
+- waitForAnimationToEnd
+
+# TESTS 93-95: Financial Health Score
+- tapOn: "Health|Score|Insights|Financial Health|💪"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-93-95-health"
+
+# ✅ BATCH 11 COMPLETE: 9 tests
+```
+
+### File: `spendtrak-tests/flows/batch-12-premium-cards.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - premium
+  - cards
+---
+# ============================================
+# BATCH 12: PREMIUM - Cards, Rewards (Tests 96-108)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 96-101: Card Optimizer
+- tapOn: "Cards|Wallet|Card Optimizer|💳"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-97-cards"
+
+# Add card
+- tapOn: "Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "Chase Sapphire"
+  optional: true
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-96-101-cards"
+
+# TESTS 102-105: Missed Rewards
+- tapOn: "Back|←"
+  optional: true
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element: "Missed Rewards|Rewards"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- tapOn: "Missed Rewards|Rewards"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-102-105-rewards"
+
+# TESTS 106-108: Subscription Extras
+- tapOn: "Back|←"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "Subscriptions"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "Netflix"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-106-108-sub-extras"
+
+# ✅ BATCH 12 COMPLETE: 13 tests
+```
+
+### File: `spendtrak-tests/flows/batch-13-premium-debt.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - premium
+  - debt
+  - income
+---
+# ============================================
+# BATCH 13: PREMIUM - Debt, Income (Tests 109-122)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 109-117: Debt Management
+- tapOn: "Debt|Debts|Loans"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-111-debts"
+
+# Add debt
+- tapOn: "Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "Credit Card Debt"
+  optional: true
+- hideKeyboard
+- tapOn:
+    text: "Balance|Amount"
+    optional: true
+- inputText: "5000"
+  optional: true
+- hideKeyboard
+- tapOn:
+    text: "Interest|APR|Rate"
+    optional: true
+- inputText: "18.99"
+  optional: true
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-109-117-debt"
+
+# Check strategies
+- tapOn: "Credit Card|Debt"
+  optional: true
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element: "Snowball|Avalanche|Strategy"
+    direction: DOWN
+    timeout: 5000
+    optional: true
+- takeScreenshot: "test-114-117-strategies"
+- tapOn: "Back|←"
+  optional: true
+
+# TESTS 118-122: Income Tracking
+- tapOn: "Income|Earnings"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-119-income"
+
+# Add income
+- tapOn: "Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "Salary"
+  optional: true
+- hideKeyboard
+- inputText: "5000"
+  optional: true
+- hideKeyboard
+- tapOn: "Monthly"
+  optional: true
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-118-122-income"
+
+# ✅ BATCH 13 COMPLETE: 14 tests
+```
+
+### File: `spendtrak-tests/flows/batch-14-premium-networth.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - premium
+  - networth
+  - household
+---
+# ============================================
+# BATCH 14: PREMIUM - Net Worth, Household (Tests 123-140)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 123-130: Net Worth
+- tapOn: "Net Worth|Assets"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-127-networth"
+
+# Add asset
+- tapOn: "Add Asset|Add|\\+"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "Cash|Bank|Savings"
+  optional: true
+- inputText: "Savings Account"
+  optional: true
+- hideKeyboard
+- inputText: "10000"
+  optional: true
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-123-130-networth"
+- tapOn: "Back|←"
+  optional: true
+
+# TESTS 131-140: Household
+- tapOn: "Household|Family|Sharing"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-131-140-household"
+
+# Create household
+- tapOn: "Create|Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "My Household"
+  optional: true
+- hideKeyboard
+- tapOn: "Create|Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-131-create-household"
+
+# ✅ BATCH 14 COMPLETE: 18 tests
+```
+
+### File: `spendtrak-tests/flows/batch-15-premium-bills.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - premium
+  - bills
+  - zbb
+---
+# ============================================
+# BATCH 15: PREMIUM - Bills, Zero-Based Budget (Tests 141-156)
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 141-149: Bill Calendar
+- tapOn: "Bills|Bill Calendar|Calendar"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-142-bills"
+
+# Add bill
+- tapOn: "Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "Rent"
+  optional: true
+- hideKeyboard
+- inputText: "1500"
+  optional: true
+- hideKeyboard
+- tapOn: "Monthly"
+  optional: true
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-141-149-bills"
+- tapOn: "Back|←"
+  optional: true
+
+# TESTS 150-156: Zero-Based Budgeting
+- tapOn: "Zero-Based|ZBB|Budget Period"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-150-156-zbb"
+
+# Create period
+- tapOn: "Create|New|\\+|Add"
+  optional: true
+- waitForAnimationToEnd
+- inputText: "5000"
+  optional: true
+- hideKeyboard
+- tapOn: "Save|Create|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-150-create-period"
+
+# ✅ BATCH 15 COMPLETE: 16 tests
+```
+
+### File: `spendtrak-tests/flows/batch-16-premium-invest.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - batch
+  - premium
+  - investments
+  - gamification
+---
+# ============================================
+# BATCH 16: PREMIUM - Investments, Gamification (Tests 157-180)
+# FINAL BATCH!
+# ============================================
+
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible: "Dev Sign In|Sign In"
+    commands:
+      - tapOn: "Dev Sign In"
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible: "Dashboard|Home"
+    timeout: 15000
+
+# TESTS 157-169: Investments
+- tapOn: "Investments|Portfolio|Stocks"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-160-portfolio"
+
+# Add stock
+- tapOn: "Add|\\+|New"
+  optional: true
+- waitForAnimationToEnd
+- tapOn: "Stock"
+  optional: true
+- inputText: "AAPL"
+  optional: true
+- hideKeyboard
+- tapOn:
+    text: "Shares|Quantity"
+    optional: true
+- inputText: "10"
+  optional: true
+- hideKeyboard
+- tapOn:
+    text: "Price|Cost"
+    optional: true
+- inputText: "150"
+  optional: true
+- hideKeyboard
+- tapOn: "Save|Done|✓"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-157-169-investments"
+- tapOn: "Back|←"
+  optional: true
+
+# TESTS 170-180: Gamification
+- tapOn: "Achievements|Rewards|Badges|🏆"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-170-achievements"
+
+# Points and Level
+- assertVisible:
+    text: "Points|Level|Bronze|Silver|Gold|XP"
+    optional: true
+- takeScreenshot: "test-172-173-level"
+
+# Challenges
+- tapOn: "Challenges"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-177-180-challenges"
+
+# Leaderboard
+- tapOn: "Leaderboard|Rankings"
+  optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-180-leaderboard"
+
+# ✅ BATCH 16 COMPLETE: 24 tests
+# 🎉 ALL 180 TESTS COMPLETE!
+```
+
+### File: `spendtrak-tests/flows/run-all.yaml`
+```yaml
+appId: ${APP_ID}
+tags:
+  - master
+  - all
+---
+# ============================================
+# MASTER TEST RUNNER - ALL 180 TESTS
+# ============================================
+
+# Initial setup
+- launchApp:
+    clearState: true
+- stopApp
+
+# Run all batches
+- runFlow: batch-01-auth.yaml
+- runFlow: batch-02-dashboard.yaml
+- runFlow: batch-03-transactions.yaml
+- runFlow: batch-04-receipts.yaml
+- runFlow: batch-05-categories.yaml
+- runFlow: batch-06-budgets.yaml
+- runFlow: batch-07-goals.yaml
+- runFlow: batch-08-settings.yaml
+- runFlow: batch-09-plus-splits.yaml
+- runFlow: batch-10-plus-subs.yaml
+- runFlow: batch-11-premium-ai.yaml
+- runFlow: batch-12-premium-cards.yaml
+- runFlow: batch-13-premium-debt.yaml
+- runFlow: batch-14-premium-networth.yaml
+- runFlow: batch-15-premium-bills.yaml
+- runFlow: batch-16-premium-invest.yaml
+
+# 🎉 ALL DONE!
+```
+
+---
+
+## PHASE 5: CREATE BUG TRACKER
+
+### File: `spendtrak-tests/bug-tracker.md`
+```markdown
+# SpendTrak Bug Tracker
+
+## Instructions
+- When a test fails, add it here
+- Simple fixes (missing testID): Fix immediately with hot reload
+- Complex fixes: Log here, fix after discovery phase
+
+---
+
+## Bugs Found
+
+### Template
+- **Batch:** 
+- **Test #:** 
+- **Error:** 
+- **File:** 
+- **Fix Needed:** 
+- **Status:** [ ] Fixed
+
+---
+
+### Bug #1
+(Add bugs as you find them)
+
+---
+
+## Summary
+- Total Found: 0
+- Fixed: 0
+- Remaining: 0
+```
+
+---
+
+## PHASE 6: RUN TESTS
+
+### Step 1: Make sure Expo is running
+```bash
+# In terminal 1
+npx expo start --clear
+```
+
+### Step 2: Run tests batch by batch
+```bash
+# In terminal 2
+cd spendtrak-tests
+
+# Run one batch at a time to fix issues as you go
+maestro test flows/batch-01-auth.yaml
+maestro test flows/batch-02-dashboard.yaml
+# ... continue through all 16
+
+# OR run all at once
+maestro test flows/run-all.yaml
+```
+
+### Step 3: When a test fails
+
+1. **Read the error message**
+2. **Identify the issue:**
+   - Element not found → Add testID or update text pattern
+   - Timeout → Add waitForAnimationToEnd or increase timeout
+   - Crash → Check app logs, fix code bug
+3. **Fix the code** (hot reload applies in 2 seconds)
+4. **Re-run the failed test**
+5. **Continue**
+
+### Step 4: Common fixes
+
+**Missing testID:**
+```jsx
+// In React Native component
+<TextInput 
+  placeholder="Amount"
+  testID="amount-input"  // ADD THIS
+/>
+```
+
+**Text mismatch:**
+```yaml
+# In Maestro test - use multiple options
+- tapOn: "Save|Submit|Done|Add|Confirm"
+```
+
+**Needs scroll:**
+```yaml
+- scrollUntilVisible:
+    element: "Budget"
+    direction: DOWN
+```
+
+**Timing issue:**
+```yaml
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Dashboard"
+    timeout: 20000
+```
+
+---
+
+## PHASE 7: FINAL VERIFICATION
+
+After all tests pass in dev mode:
+
+### Step 1: Build Release APK
+```bash
+# Stop Expo dev server first (Ctrl+C)
+
+# Build release
+npx expo run:android --variant release
+
+# OR use EAS
+eas build --platform android --profile preview --local
+```
+
+### Step 2: Install on Phone
+```bash
+adb install -r android/app/build/outputs/apk/release/app-release.apk
+```
+
+### Step 3: Run Final Test Suite
+```bash
+maestro test spendtrak-tests/flows/run-all.yaml \
+  --format junit \
+  --output spendtrak-tests/reports/final.xml
+```
+
+### Step 4: Generate Report
+```bash
+maestro test spendtrak-tests/flows/ \
+  --format html \
+  --output spendtrak-tests/reports/final-report.html
+```
+
+---
+
+## PHASE 8: CREATE testID CONSTANTS (RECOMMENDED)
+
+### File: `src/constants/testIds.ts`
+```typescript
+export const TEST_IDS = {
+  // Auth
+  AUTH_EMAIL_INPUT: 'email-input',
+  AUTH_PASSWORD_INPUT: 'password-input',
+  AUTH_DEV_SIGNIN: 'dev-signin-button',
+  
+  // Transactions
+  AMOUNT_INPUT: 'amount-input',
+  MERCHANT_INPUT: 'merchant-input',
+  SAVE_BUTTON: 'save-button',
+  
+  // Add more as needed...
+} as const;
+```
+
+Then use in components:
+```jsx
+import { TEST_IDS } from '@/constants/testIds';
+
+<TextInput testID={TEST_IDS.AMOUNT_INPUT} />
+```
+
+---
+
+## SUMMARY
+
+| Phase | What | Time |
+|-------|------|------|
+| 1 | Setup (find project, install Maestro) | 10 min |
+| 2-4 | Create test files | 15 min |
+| 5 | Create bug tracker | 2 min |
+| 6 | Run tests + fix bugs (hot reload) | 45-60 min |
+| 7 | Final verification (release APK) | 20-30 min |
+
+**Total: ~90-120 minutes**
+
+---
+
+## GO!
+
+1. Find SpendTrak project in Downloads
+2. Install Maestro
+3. Get app package name from app.json
+4. Start `npx expo start`
+5. Connect phone via Expo Go
+6. Create all test files
+7. Run tests, fix bugs using hot reload
+8. Build release APK once everything passes
+9. Final verification
+10. Generate report
+
+**Key: Use hot reload during testing = no rebuilding until the very end!** Launch Expo Go and open the link and start all tests and fix all errors, don't stop until all of errors ar fixed

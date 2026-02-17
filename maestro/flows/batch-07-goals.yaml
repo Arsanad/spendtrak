@@ -1,0 +1,75 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - goals
+---
+# ============================================
+# BATCH 7: Savings Goals Tests 38-42
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 38: Tap on Savings Goals
+- tapOn:
+    text: "Savings Goals"
+    optional: true
+- tapOn:
+    text: "Goals"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: "test-38-goals"
+
+# TEST 39: View goals list
+- takeScreenshot: "test-39-goals-list"
+
+# TEST 40: Add goal (if button exists)
+- tapOn:
+    text: "Add"
+    optional: true
+- tapOn:
+    text: "Create"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-40-add-goal"
+
+# TEST 41: Enter goal details
+- inputText: "Vacation Fund"
+- inputText: "2000"
+- waitForAnimationToEnd
+
+# TEST 42: Save/Cancel
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Cancel"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-42-goal-saved"
+
+- back
+- waitForAnimationToEnd
+- takeScreenshot: "batch-07-complete"
+

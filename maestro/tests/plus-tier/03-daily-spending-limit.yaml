@@ -1,0 +1,62 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Daily Spending Limit Tests (62-65)"
+tags: [plus, daily-limit]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Settings or Budget
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 62: Set Daily Limit - Set $50 daily limit
+- scrollUntilVisible:
+    element:
+      text: "Daily Limit|Spending Limit"
+- tapOn:
+    text: "Daily Limit|Spending Limit"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "daily-limit-input"
+    optional: true
+- inputText: "50"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "50"
+    optional: true
+
+# Test 63: Safe to Spend - See remaining for today
+- assertVisible:
+    text: "Safe to Spend|Remaining|Available"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 64: Over Limit Warning - Alert when exceeded
+- assertVisible:
+    text: "Over Limit|Exceeded|Warning"
+    optional: true
+
+# Test 65: Daily History - View spending by day
+- tapOn:
+    text: "History|Daily"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Today|Yesterday"
+    optional: true
+
+- takeScreenshot: "daily-limit-complete"

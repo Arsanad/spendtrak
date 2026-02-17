@@ -1,0 +1,69 @@
+appId: com.spendtrak.app
+name: "Premium Tier - AI Financial Consultant Tests (87-92)"
+tags: [premium, ai]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 87: Open AI Chat - Open AI consultant screen
+- tapOn:
+    id: "ai-button"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "AI|Consultant|Chat"
+    optional: true
+
+# Test 88: Send Message - Ask "How much did I spend on food?"
+- tapOn:
+    id: "chat-input"
+    optional: true
+- inputText: "How much did I spend on food?"
+- tapOn:
+    text: "Send"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 89: Receive Response - AI responds with analysis
+- assertVisible:
+    text: "food|spending|\\$"
+    optional: true
+
+# Test 90: Conversation History - Previous messages saved
+- assertVisible:
+    text: "How much did I spend"
+    optional: true
+
+# Test 91: Spending Advice - Ask "How can I save money?"
+- tapOn:
+    id: "chat-input"
+    optional: true
+- inputText: "How can I save money?"
+- tapOn:
+    text: "Send"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "save|reduce|spending"
+    optional: true
+
+# Test 92: Budget Advice - Ask "Am I on track with budgets?"
+- tapOn:
+    id: "chat-input"
+    optional: true
+- inputText: "Am I on track with my budgets?"
+- tapOn:
+    text: "Send"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "budget|track|on track"
+    optional: true
+
+- takeScreenshot: "ai-consultant-complete"

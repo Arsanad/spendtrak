@@ -1,0 +1,21 @@
+appId: com.spendtrak.app
+---
+# Helper: App Launch with proper wait times
+# Include this at the start of each test
+
+- launchApp:
+    clearState: true
+
+# Wait for app to fully load (splash + fonts + navigation)
+# The app shows either Welcome (Get Started) or Sign In screen
+- extendedWaitUntil:
+    visible:
+      text: "Get Started|Sign In"
+    timeout: 20000
+
+# Dismiss any system dialogs that might appear
+- tapOn:
+    text: "Later|Not now|Skip|Cancel|Dismiss"
+    optional: true
+
+- waitForAnimationToEnd

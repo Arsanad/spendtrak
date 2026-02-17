@@ -1,0 +1,125 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Net Worth Tracking Tests (123-130)"
+tags: [premium, net-worth]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Net Worth
+- tapOn:
+    text: "Net Worth|Assets"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 123: Add Asset - Add cash/investment asset
+- tapOn:
+    text: "Add Asset|Add|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Cash|Savings"
+    optional: true
+- tapOn:
+    id: "asset-name-input"
+    optional: true
+- inputText: "Savings Account"
+- tapOn:
+    id: "asset-value-input"
+    optional: true
+- inputText: "10000"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 124: Add Property - Add real estate
+- tapOn:
+    text: "Add Asset|Add|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Property|Real Estate"
+    optional: true
+- tapOn:
+    id: "asset-name-input"
+    optional: true
+- inputText: "Home"
+- tapOn:
+    id: "asset-value-input"
+    optional: true
+- inputText: "300000"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 125: Add Vehicle - Add car value
+- tapOn:
+    text: "Add Asset|Add|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Vehicle|Car"
+    optional: true
+- tapOn:
+    id: "asset-name-input"
+    optional: true
+- inputText: "Car"
+- tapOn:
+    id: "asset-value-input"
+    optional: true
+- inputText: "25000"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 126: Add Liability - Add loan/debt
+- tapOn:
+    text: "Add Liability|Liability"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "liability-name-input"
+    optional: true
+- inputText: "Mortgage"
+- tapOn:
+    id: "liability-value-input"
+    optional: true
+- inputText: "250000"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 127: View Net Worth - See total net worth
+- assertVisible:
+    text: "Net Worth"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 128: Net Worth Chart - Historical net worth graph
+- tapOn:
+    text: "Chart|History"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Chart|Graph"
+    optional: true
+
+# Test 129: Assets vs Liabilities - Breakdown view
+- assertVisible:
+    text: "Assets|Liabilities"
+    optional: true
+
+# Test 130: Monthly Change - See month-over-month change
+- assertVisible:
+    text: "Change|Month|%"
+    optional: true
+
+- takeScreenshot: "net-worth-complete"

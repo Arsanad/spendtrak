@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Reset your SpendTrak password</title>
+</head>
+<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Cinzel','Georgia','Times New Roman',serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0a0a0a;">
+    <tr>
+      <td align="center" style="padding:40px 20px;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background-color:#111111;border:1px solid #1a3a1a;border-radius:16px;overflow:hidden;">
+          <!-- Green gradient glow line -->
+          <tr>
+            <td style="height:3px;background:linear-gradient(90deg,#0a0a0a,#39FF14,#0a0a0a);"></td>
+          </tr>
+          <!-- Logo -->
+          <tr>
+            <td align="center" style="padding:40px 40px 10px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:28px;font-weight:700;color:#39FF14;letter-spacing:6px;">
+                    SPENDTRAK
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:12px;font-weight:400;color:#4a7a4a;letter-spacing:3px;padding-top:6px;">
+                    Financial Intelligence
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 40px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="height:1px;background:linear-gradient(90deg,transparent,#1a3a1a,transparent);"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- Heading -->
+          <tr>
+            <td align="center" style="padding:30px 40px 10px 40px;font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:22px;font-weight:600;color:#e0e0e0;">
+              Password reset.
+            </td>
+          </tr>
+          <!-- Body -->
+          <tr>
+            <td align="center" style="padding:10px 40px 30px 40px;font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:15px;line-height:1.7;color:#8a8a8a;">
+              We received a request to reset your password. Click below to choose a new one.
+            </td>
+          </tr>
+          <!-- CTA Button -->
+          <tr>
+            <td align="center" style="padding:10px 40px 30px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="background-color:#39FF14;border-radius:8px;">
+                    <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block;padding:14px 36px;font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:14px;font-weight:700;color:#000000;text-decoration:none;text-transform:uppercase;letter-spacing:2px;">
+                      RESET PASSWORD
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- Fallback URL -->
+          <tr>
+            <td align="center" style="padding:0 40px 20px 40px;font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:12px;color:#8a8a8a;">
+              Or copy this link:<br>
+              <a href="{{ .ConfirmationURL }}" style="color:#39FF14;text-decoration:none;word-break:break-all;font-size:12px;">{{ .ConfirmationURL }}</a>
+            </td>
+          </tr>
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 40px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="height:1px;background:linear-gradient(90deg,transparent,#1a3a1a,transparent);"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- Security Note -->
+          <tr>
+            <td align="center" style="padding:20px 40px 10px 40px;font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:12px;line-height:1.6;color:#444444;">
+              If you didn't request a password reset, ignore this email. Your password will remain unchanged. This link expires in 1 hour.
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td align="center" style="padding:20px 40px 30px 40px;font-family:'Cinzel','Georgia','Times New Roman',serif;font-size:11px;color:#333333;">
+              &copy; 2026 SPENDTRAK &nbsp;&middot;&nbsp;
+              <a href="https://spendtrak.app/privacy" style="color:#444444;text-decoration:none;">Privacy</a> &nbsp;&middot;&nbsp;
+              <a href="https://spendtrak.app/terms" style="color:#444444;text-decoration:none;">Terms</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

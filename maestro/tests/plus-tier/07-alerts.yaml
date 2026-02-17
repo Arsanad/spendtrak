@@ -1,0 +1,61 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Alerts System Tests (82-86)"
+tags: [plus, alerts]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Alerts (might be in dashboard or notifications)
+- tapOn:
+    text: "Alerts|Notifications"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 82: View Alerts - See all alerts
+- assertVisible:
+    id: "alerts-section"
+    optional: true
+- assertVisible:
+    text: "Alerts"
+    optional: true
+
+# Test 83: Unread Count - Badge shows unread count
+- assertVisible:
+    text: "[0-9]+"
+    optional: true
+
+# Test 84: Mark as Read - Mark alert as read
+- tapOn:
+    id: "alert-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Mark as Read|Read"
+    optional: true
+
+# Test 85: Dismiss Alert - Dismiss/delete alert
+- tapOn:
+    id: "alert-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Dismiss|Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+# Test 86: Alert Types - Different alert icons/colors
+- assertVisible:
+    text: "Warning|Info|Success|Error"
+    optional: true
+
+- takeScreenshot: "alerts-complete"

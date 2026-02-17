@@ -1,0 +1,47 @@
+appId: com.spendtrak.app
+name: Add Expense Tests
+tags: [add-expense, critical]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Open Add Expense Modal
+- tapOn:
+    id: "add-expense-button"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "07-add-expense-modal"
+
+# Test 4.1: Amount Input
+- assertVisible:
+    id: "amount-input"
+    optional: true
+
+# Test 4.2: Merchant Input
+- assertVisible:
+    id: "merchant-input"
+    optional: true
+
+# Test 4.3: Category Selection
+- assertVisible:
+    id: "category-grid"
+    optional: true
+
+# Test 4.4: Notes Field
+- assertVisible:
+    id: "notes-input"
+    optional: true
+
+# Test 4.5: Save Button
+- assertVisible:
+    text: "Save"
+    optional: true
+
+# Test 4.6: Close Modal
+- tapOn:
+    id: "close-button"
+    optional: true
+- takeScreenshot: "08-add-expense-closed"

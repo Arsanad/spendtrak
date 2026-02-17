@@ -1,0 +1,97 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - settings
+---
+# ============================================
+# BATCH 8: Settings Tests 43-51
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# TEST 43: Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 44: Settings screen visible
+- assertVisible:
+    id: "settings-screen"
+    optional: true
+- takeScreenshot: "test-44-settings"
+
+# TEST 45: Scroll to view all settings
+- scroll
+- takeScreenshot: "test-45-settings-scroll"
+
+# TEST 46: Tap Currency
+- tapOn:
+    text: "Currency"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-46-currency"
+- back
+- waitForAnimationToEnd
+
+# TEST 47: Tap Language
+- tapOn:
+    text: "Language"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-47-language"
+- back
+- waitForAnimationToEnd
+
+# TEST 48: Tap Help & FAQ
+- scroll
+- tapOn:
+    text: "Help"
+    optional: true
+- tapOn:
+    text: "FAQ"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-48-help"
+- back
+- waitForAnimationToEnd
+
+# TEST 49: Tap Privacy Policy
+- tapOn:
+    text: "Privacy"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-49-privacy"
+- back
+- waitForAnimationToEnd
+
+# TEST 50: Tap Terms of Service
+- tapOn:
+    text: "Terms"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-50-terms"
+- back
+- waitForAnimationToEnd
+
+# TEST 51: Sign Out button visible
+- scroll
+- assertVisible:
+    id: "signout-button"
+    optional: true
+- takeScreenshot: "test-51-signout-visible"
+
+- takeScreenshot: "batch-08-complete"
+

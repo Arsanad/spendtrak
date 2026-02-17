@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — SpendTrak</title>
+  <meta name="description" content="SpendTrak Help Center. Find answers to frequently asked questions and get support for your SpendTrak account.">
+  <meta property="og:title" content="Support — SpendTrak">
+  <meta property="og:url" content="https://spendtrak.app/support.html">
+  <link rel="canonical" href="https://spendtrak.app/support.html">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a; --bg-card: #111111; --bg-card-hover: #1a1a1a;
+      --green: #00E676; --green-dim: rgba(0, 230, 118, 0.15);
+      --text: #e0e0e0; --text-dim: #888; --text-bright: #ffffff;
+      --border: #222; --radius: 12px; --max-w: 800px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--green); text-decoration: none; }
+    a:hover { opacity: 0.8; }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1200px; margin: 0 auto; padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.4rem; font-weight: 700; color: var(--text-bright);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo-icon {
+      width: 32px; height: 32px; background: var(--green);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: #0a0a0a; font-weight: 800;
+    }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a { color: var(--text-dim); font-size: 0.95rem; font-weight: 500; }
+    nav a:hover { color: var(--text-bright); opacity: 1; }
+    .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 640px) {
+      nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: rgba(10,10,10,0.97); padding: 20px 24px; gap: 16px; border-bottom: 1px solid var(--border); }
+      nav.open { display: flex; }
+      .nav-toggle { display: block; }
+    }
+
+    .page-content {
+      max-width: var(--max-w); margin: 0 auto; padding: 120px 24px 80px;
+    }
+    .page-content h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800;
+      color: var(--text-bright); margin-bottom: 8px;
+    }
+    .page-subtitle { color: var(--text-dim); font-size: 1.05rem; margin-bottom: 48px; }
+
+    /* Sections */
+    .support-section { margin-bottom: 60px; }
+    .support-section h2 {
+      font-size: 1.4rem; font-weight: 700; color: var(--text-bright);
+      margin-bottom: 24px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* FAQ Accordion */
+    .faq-item {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-bottom: 12px; overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.active { border-color: var(--green); }
+    .faq-question {
+      width: 100%; padding: 18px 20px;
+      background: var(--bg-card); border: none; color: var(--text-bright);
+      font-size: 1rem; font-weight: 600; text-align: left;
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 16px; transition: background 0.2s;
+    }
+    .faq-question:hover { background: var(--bg-card-hover); }
+    .faq-arrow {
+      font-size: 1.2rem; color: var(--green); transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .faq-item.active .faq-arrow { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out;
+      background: var(--bg-card);
+    }
+    .faq-answer-inner {
+      padding: 0 20px 20px; color: var(--text); font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .faq-answer-inner p { margin-bottom: 12px; }
+    .faq-answer-inner p:last-child { margin-bottom: 0; }
+
+    /* Contact Card */
+    .contact-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+    }
+    .contact-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--text-bright); margin-bottom: 12px; }
+    .contact-card p { margin-bottom: 12px; }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; background: var(--green-dim);
+      border: 1px solid var(--green); border-radius: 50px;
+      color: var(--green); font-weight: 600; font-size: 1rem;
+      margin-top: 8px;
+    }
+    .contact-email:hover { opacity: 0.8; }
+
+    /* Feedback */
+    .feedback-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .feedback-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .feedback-card h3 { font-size: 1.05rem; font-weight: 600; color: var(--text-bright); margin-bottom: 8px; }
+    .feedback-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 16px; }
+    .feedback-card ol { margin: 0 0 0 20px; color: var(--text-dim); font-size: 0.9rem; }
+    .feedback-card li { margin-bottom: 6px; }
+
+    /* Links */
+    .links-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+    .link-card {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 24px; background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--text-bright); font-weight: 600; font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .link-card:hover { border-color: var(--green); opacity: 1; color: var(--text-bright); }
+
+    @media (max-width: 640px) {
+      .feedback-grid { grid-template-columns: 1fr; }
+    }
+
+    footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; }
+    footer p { color: var(--text-dim); font-size: 0.85rem; }
+    .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-dim); font-size: 0.9rem; }
+    .footer-links a:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">S</div>
+        SpendTrak
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('nav').classList.toggle('open')">&#9776;</button>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <h1>Help Center</h1>
+    <p class="page-subtitle">Find answers to common questions or reach out to our support team.</p>
+
+    <!-- FAQ Section -->
+    <div class="support-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I connect my email to SpendTrak?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Go to <strong>Settings &gt; Connect Email</strong> in the app. You can connect a Gmail or Outlook account. Tap the provider you want, and you'll be redirected to a secure sign-in page managed by Google or Microsoft.</p>
+            <p>SpendTrak only requests permission to read purchase-related emails. We never access your personal or sensitive emails.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How does AI receipt scanning work?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Once your email is connected, SpendTrak automatically searches for purchase receipts and order confirmations. Our AI reads each receipt and extracts key details: merchant name, amount, date, and category.</p>
+            <p>You can also manually scan paper receipts using your phone's camera. The AI will extract the same information from the photo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is my financial data secure?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Absolutely. Security is our top priority:</p>
+            <p>Email access tokens are encrypted with <strong>AES-256-GCM</strong> before storage. All data is protected by Supabase <strong>Row Level Security (RLS)</strong>, meaning only you can access your own data. All communications use TLS 1.2+ encryption.</p>
+            <p>We never store your email password. We use secure OAuth tokens provided by Google and Microsoft. Read more in our <a href="privacy.html">Privacy Policy</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I cancel my subscription?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Subscriptions are managed through your device's app store:</p>
+            <p><strong>iOS:</strong> Go to iPhone Settings &gt; Apple ID &gt; Subscriptions &gt; SpendTrak &gt; Cancel.</p>
+            <p><strong>Android:</strong> Open Google Play Store &gt; Menu &gt; Subscriptions &gt; SpendTrak &gt; Cancel.</p>
+            <p>Cancellation takes effect at the end of your current billing period. You'll retain access to paid features until then.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I export my transaction data?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes. Go to <strong>Settings &gt; Export Data</strong> in the app. You can export your transactions as a CSV file filtered by date range. The export includes merchant name, amount, category, date, and notes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Which email providers are supported?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>SpendTrak currently supports <strong>Gmail</strong> and <strong>Microsoft Outlook</strong> (including Hotmail and Live.com accounts). We plan to add support for additional providers in the future.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Does SpendTrak work offline?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>You can view your existing transactions and budgets offline. Manual transaction entry also works offline — entries will sync automatically when you're back online.</p>
+            <p>Features that require internet include email syncing, AI scanning, and the AI consultant.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How does multi-currency support work?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>SpendTrak automatically detects the currency of each transaction. You can set your primary display currency in <strong>Settings &gt; Currency</strong>, and all amounts will be converted using up-to-date exchange rates.</p>
+            <p>Your budgets and reports will show amounts in your chosen currency while preserving the original transaction currency.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I delete my account and data?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Go to <strong>Settings &gt; Privacy &gt; Delete Account</strong> in the app. This will permanently remove your account and all associated data within 30 days.</p>
+            <p>Before deleting, we recommend exporting your data. You can also email <a href="mailto:support@spendtrak.app">support@spendtrak.app</a> to request account deletion.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the AI Financial Consultant?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Available on the Premium plan, the AI Financial Consultant is a chat-based assistant that analyzes your spending patterns and provides personalized advice. You can ask it questions like "Where am I overspending?" or "How can I save more this month?"</p>
+            <p><strong>Note:</strong> This is an AI tool for informational purposes only, not a replacement for professional financial advice.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="support-section">
+      <h2>Contact Us</h2>
+      <div class="contact-card">
+        <h3>Need more help?</h3>
+        <p>Our support team typically responds within 24 hours on business days.</p>
+        <a href="mailto:support@spendtrak.app" class="contact-email">support@spendtrak.app</a>
+      </div>
+    </div>
+
+    <!-- Feature Request / Bug Report -->
+    <div class="support-section">
+      <h2>Feedback</h2>
+      <div class="feedback-grid">
+        <div class="feedback-card">
+          <h3>Feature Requests</h3>
+          <p>Have an idea to make SpendTrak better? We'd love to hear it.</p>
+          <ol>
+            <li>Email <a href="mailto:support@spendtrak.app">support@spendtrak.app</a></li>
+            <li>Use subject line: <strong>Feature Request</strong></li>
+            <li>Describe the feature and how it would help you</li>
+          </ol>
+        </div>
+        <div class="feedback-card">
+          <h3>Bug Reports</h3>
+          <p>Found something that doesn't work right? Help us fix it.</p>
+          <ol>
+            <li>Email <a href="mailto:support@spendtrak.app">support@spendtrak.app</a></li>
+            <li>Use subject line: <strong>Bug Report</strong></li>
+            <li>Include your device, OS version, and steps to reproduce</li>
+            <li>Attach screenshots if possible</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="support-section">
+      <h2>Useful Links</h2>
+      <div class="links-row">
+        <a href="privacy.html" class="link-card">Privacy Policy</a>
+        <a href="terms.html" class="link-card">Terms of Service</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="support.html">Support</a>
+    </div>
+    <p>&copy; 2026 SpendTrak. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isActive = item.classList.contains('active');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(faq => {
+        faq.classList.remove('active');
+        faq.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      // Open clicked (if it wasn't already open)
+      if (!isActive) {
+        item.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+  </script>
+
+</body>
+</html>

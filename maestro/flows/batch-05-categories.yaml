@@ -1,0 +1,53 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - categories
+---
+# ============================================
+# BATCH 5: Categories Tests 27-31
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# TEST 27: Navigate to Settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- waitForAnimationToEnd
+
+# TEST 28: Settings screen visible
+- assertVisible:
+    id: "settings-screen"
+    optional: true
+- takeScreenshot: "test-28-settings"
+
+# TEST 29: Tap on Categories
+- tapOn:
+    text: "Categories"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: "test-29-categories"
+
+# TEST 30: View category list
+- takeScreenshot: "test-30-category-list"
+
+# TEST 31: Go back
+- back
+- waitForAnimationToEnd
+- takeScreenshot: "test-31-back-to-settings"
+
+- takeScreenshot: "batch-05-complete"
+

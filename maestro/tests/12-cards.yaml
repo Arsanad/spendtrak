@@ -1,0 +1,45 @@
+appId: com.spendtrak.app
+name: Card Optimizer Tests
+tags: [cards, optimizer]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- runFlow: "../helpers/login.yaml"
+
+# Navigate to Settings then Cards
+- tapOn:
+    id: "tab-settings"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Cards"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "23-cards-screen"
+
+# Test 12.1: Card List
+- assertVisible:
+    id: "card-item"
+    optional: true
+
+# Test 12.2: Add Card Button
+- assertVisible:
+    text: "Add"
+    optional: true
+
+# Test 12.3: Card Display
+- assertVisible:
+    id: "card-display"
+    optional: true
+
+# Test 12.4: Best Card Suggestion
+- assertVisible:
+    text: "Best"
+    optional: true
+
+# Test 12.5: Back Navigation
+- tapOn:
+    text: "Back"
+    optional: true
+- takeScreenshot: "24-cards-closed"

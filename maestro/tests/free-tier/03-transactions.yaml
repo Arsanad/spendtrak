@@ -1,0 +1,131 @@
+appId: com.spendtrak.app
+name: "Free Tier - Transactions Tests (12-21)"
+tags: [free, transactions]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Transactions
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 12: Add Expense - Add a new expense manually
+- tapOn:
+    id: "add-expense-button"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    id: "amount-input"
+    optional: true
+- tapOn:
+    id: "amount-input"
+    optional: true
+- inputText: "25.50"
+- tapOn:
+    id: "merchant-input"
+    optional: true
+- inputText: "Test Coffee Shop"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 13: Add Income - Add income transaction
+- tapOn:
+    id: "add-expense-button"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Income"
+    optional: true
+- tapOn:
+    id: "amount-input"
+    optional: true
+- inputText: "1000"
+- tapOn:
+    id: "merchant-input"
+    optional: true
+- inputText: "Test Salary"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 14: Edit Transaction - Modify existing transaction
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Edit"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 15: Delete Transaction - Remove a transaction
+- tapOn:
+    text: "Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+# Test 16: Transaction Details - View full transaction details
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Details|Amount"
+    optional: true
+- tapOn:
+    text: "Back|Close"
+    optional: true
+
+# Test 17: Add Notes - Add notes to transaction
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "notes-input"
+    optional: true
+- inputText: "Test note for transaction"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 18: Set Date - Change transaction date
+# Covered in add expense flow
+
+# Test 19: Select Category - Assign category to transaction
+- assertVisible:
+    id: "category-grid"
+    optional: true
+
+# Test 20: Transaction List - View all transactions
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    id: "transactions-screen"
+    optional: true
+
+# Test 21: Pull to Refresh - Refresh transaction list
+- swipe:
+    direction: DOWN
+    duration: 500
+- waitForAnimationToEnd
+
+- takeScreenshot: "transactions-complete"

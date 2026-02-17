@@ -1,0 +1,243 @@
+# SpendTrak E2E Test: Full App Flow
+# Complete user journey through all major features
+
+appId: com.spendtrak.app
+
+---
+# Test: Full App User Journey
+
+- launchApp:
+    clearState: true
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# === ONBOARDING & AUTH ===
+
+# Verify welcome screen
+- assertVisible:
+    text: "Welcome"
+    optional: true
+
+# Sign in with Google
+- tapOn:
+    text: "Continue with Google"
+    optional: true
+
+# Wait for auth
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# === DASHBOARD ===
+
+# Verify dashboard loaded
+- assertVisible:
+    text: "Good"
+    optional: true
+
+# Check summary card
+- assertVisible:
+    id: "summary-card"
+    optional: true
+
+# === ADD FIRST EXPENSE ===
+
+# Tap Add Expense
+- tapOn:
+    text: "Add Expense"
+    optional: true
+
+# Wait for modal
+- waitForAnimationToEnd
+
+# Fill expense form
+- tapOn:
+    id: "input-merchant"
+    optional: true
+- inputText: "Uber"
+
+- tapOn:
+    id: "input-amount"
+    optional: true
+- inputText: "25.00"
+
+# Select category
+- tapOn:
+    text: "Category"
+    optional: true
+- tapOn:
+    text: "Transportation"
+    optional: true
+
+# Save
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Wait for save
+- waitForAnimationToEnd
+
+# === SCAN RECEIPT ===
+
+# Open camera
+- tapOn:
+    text: "Scan Receipt"
+    optional: true
+
+# Wait for camera
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Use gallery
+- tapOn:
+    id: "gallery-button"
+    optional: true
+
+# Select image
+- tapOn:
+    id: "image-0"
+    optional: true
+
+# Wait for OCR
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Save scanned receipt
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Wait for save
+- waitForAnimationToEnd
+
+# === VIEW TRANSACTIONS ===
+
+# Go to transactions
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+
+# Wait for load
+- waitForAnimationToEnd
+
+# Search for expense
+- tapOn:
+    id: "search-input"
+    optional: true
+- inputText: "Uber"
+
+# Wait for results
+- waitForAnimationToEnd
+
+# Clear search
+- tapOn:
+    id: "clear-search"
+    optional: true
+
+# === CHECK SUBSCRIPTIONS ===
+
+# Go to subscriptions
+- tapOn:
+    id: "tab-subscriptions"
+    optional: true
+
+# Wait for load
+- waitForAnimationToEnd
+
+# Verify subscriptions
+- assertVisible:
+    text: "Subscriptions"
+    optional: true
+
+# Check monthly cost
+- assertVisible:
+    text: "/month"
+    optional: true
+
+# === CHECK ALERTS ===
+
+# Go to alerts
+- tapOn:
+    id: "tab-alerts"
+    optional: true
+
+# Wait for load
+- waitForAnimationToEnd
+
+# Mark all read
+- tapOn:
+    text: "Mark All Read"
+    optional: true
+
+# === AI CONSULTANT ===
+
+# Go back to dashboard
+- tapOn:
+    id: "tab-home"
+    optional: true
+
+# Open AI Consultant
+- tapOn:
+    text: "🤖"
+    optional: true
+
+# Wait for AI
+- waitForAnimationToEnd
+
+# Send message
+- tapOn:
+    id: "chat-input"
+    optional: true
+- inputText: "Give me a spending summary"
+
+- tapOn:
+    id: "send-button"
+    optional: true
+
+# Wait for response
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# Close AI
+- tapOn:
+    text: "✕"
+    optional: true
+
+# === SETTINGS ===
+
+# Go to settings
+- tapOn:
+    id: "tab-settings"
+    optional: true
+
+# Wait for load
+- waitForAnimationToEnd
+
+# Check currency
+- tapOn:
+    text: "Currency"
+    optional: true
+
+# Select USD
+- tapOn:
+    text: "USD"
+    optional: true
+
+# === SIGN OUT ===
+
+# Sign out
+- tapOn:
+    text: "Sign Out"
+    optional: true
+
+# Confirm
+- tapOn:
+    text: "Yes"
+    optional: true
+
+# Verify back to welcome
+- assertVisible:
+    text: "Welcome"
+    optional: true
+
+# === END OF TEST ===

@@ -1,0 +1,89 @@
+appId: com.spendtrak.app
+name: "Free Tier - Basic Goals Tests (38-42)"
+tags: [free, goals]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Goals
+- tapOn:
+    text: "Goals|Savings"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 38: Create Goal - Create savings goal
+- tapOn:
+    text: "Add|New|Create|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "goal-name-input"
+    optional: true
+- inputText: "Emergency Fund"
+- tapOn:
+    id: "target-amount-input"
+    optional: true
+- inputText: "10000"
+- tapOn:
+    text: "Save|Create"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Emergency Fund"
+    optional: true
+
+# Test 39: Goal Progress - See progress bar
+- assertVisible:
+    id: "goal-progress"
+    optional: true
+- assertVisible:
+    text: "progress|%"
+    optional: true
+
+# Test 40: Add Contribution - Add money to goal
+- tapOn:
+    text: "Emergency Fund"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Add|Contribute|\\+"
+    optional: true
+- tapOn:
+    id: "contribution-amount-input"
+    optional: true
+- inputText: "100"
+- tapOn:
+    text: "Save|Add"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 41: Edit Goal - Change target amount/date
+- tapOn:
+    text: "Edit"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "target-amount-input"
+    optional: true
+- eraseText: 20
+- inputText: "15000"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 42: Delete Goal - Remove goal
+- tapOn:
+    text: "Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+- takeScreenshot: "goals-complete"

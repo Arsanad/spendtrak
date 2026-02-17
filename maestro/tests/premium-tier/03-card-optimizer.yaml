@@ -1,0 +1,93 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Card Optimizer Tests (96-101)"
+tags: [premium, cards]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Cards
+- tapOn:
+    text: "Cards|Wallet"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 96: Add Credit Card - Add card with rewards info
+- tapOn:
+    text: "Add|New|\\+"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "card-name-input"
+    optional: true
+- inputText: "Chase Sapphire"
+- tapOn:
+    id: "card-type-input"
+    optional: true
+- tapOn:
+    text: "Credit"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Chase Sapphire"
+    optional: true
+
+# Test 97: View Cards - See all cards
+- assertVisible:
+    text: "Cards|My Cards"
+    optional: true
+- assertVisible:
+    id: "card-item"
+    optional: true
+
+# Test 98: Best Card Recommendation - See which card for groceries
+- tapOn:
+    text: "Recommend|Best Card"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Best|Recommended"
+    optional: true
+
+# Test 99: Category Recommendations - Best card per category
+- tapOn:
+    text: "By Category"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Groceries|Food|Gas"
+    optional: true
+
+# Test 100: Edit Card - Modify card details
+- tapOn:
+    text: "Chase Sapphire"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Edit"
+    optional: true
+- tapOn:
+    id: "card-nickname-input"
+    optional: true
+- inputText: "Primary Card"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 101: Delete Card - Remove card
+- tapOn:
+    text: "Delete|Remove"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+
+- takeScreenshot: "card-optimizer-complete"

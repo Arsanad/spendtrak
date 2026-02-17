@@ -1,0 +1,8 @@
+name = "spendtrak-api-proxy"
+main = "worker.js"
+compatibility_date = "2026-02-09"
+
+[triggers]
+routes = [
+  { pattern = "api.spendtrak.app/*", zone_name = "spendtrak.app" }
+]

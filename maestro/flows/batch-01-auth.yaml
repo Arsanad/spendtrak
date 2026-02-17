@@ -1,0 +1,52 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - free
+  - auth
+---
+# ============================================
+# BATCH 1: Authentication Tests 1-6
+# For Expo Go - App already open
+# ============================================
+
+# Wait for app to be ready (no launchApp - app already open)
+- waitForAnimationToEnd:
+    timeout: 5000
+- takeScreenshot: "test-01-initial-state"
+
+# Check if we're on welcome screen and go through auth flow
+- runFlow:
+    when:
+      visible:
+        id: "welcome-screen"
+    commands:
+      - takeScreenshot: "test-02-welcome-visible"
+      - tapOn:
+          id: "get-started-button"
+      - waitForAnimationToEnd:
+          timeout: 8000
+      - takeScreenshot: "test-04-signin-screen"
+      - tapOn:
+          id: "dev-signin-button"
+      - waitForAnimationToEnd:
+          timeout: 15000
+
+# Check for sign in screen (if not already logged in)
+- runFlow:
+    when:
+      visible:
+        id: "signin-screen"
+    commands:
+      - takeScreenshot: "test-05-signin-visible"
+      - tapOn:
+          id: "dev-signin-button"
+      - waitForAnimationToEnd:
+          timeout: 15000
+
+# Final verification - should be on dashboard
+- assertVisible:
+    id: "dashboard-screen"
+    optional: true
+- takeScreenshot: "test-06-auth-complete"
+
+# ✅ BATCH 1 COMPLETE

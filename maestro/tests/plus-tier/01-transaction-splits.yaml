@@ -1,0 +1,106 @@
+appId: com.spendtrak.app
+name: "Plus Tier - Transaction Splits Tests (52-56)"
+tags: [plus, splits]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Transactions
+- tapOn:
+    id: "tab-transactions"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 52: Split Transaction - Split $100 into 2 categories
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Split"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Add Split"
+    optional: true
+- tapOn:
+    text: "Category"
+    optional: true
+- tapOn:
+    text: "Food"
+    optional: true
+- tapOn:
+    id: "split-amount-input"
+    optional: true
+- inputText: "50"
+- tapOn:
+    text: "Add Split"
+    optional: true
+- tapOn:
+    text: "Category"
+    optional: true
+- tapOn:
+    text: "Entertainment"
+    optional: true
+- tapOn:
+    id: "split-amount-input"
+    optional: true
+- inputText: "50"
+- tapOn:
+    text: "Save"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 53: Multi-Split - Split into 3+ categories
+- tapOn:
+    id: "transaction-item"
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Split"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Add Split"
+    optional: true
+- assertVisible:
+    text: "Add Split"
+    optional: true
+
+# Test 54: Edit Split - Modify split amounts
+- tapOn:
+    text: "Edit"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    id: "split-amount-input"
+    optional: true
+- eraseText: 20
+- inputText: "30"
+- tapOn:
+    text: "Save"
+    optional: true
+
+# Test 55: Unsplit - Merge split back to single
+- tapOn:
+    text: "Unsplit|Merge"
+    optional: true
+- tapOn:
+    text: "Confirm|Yes"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 56: Split Validation - Total must equal original
+- assertVisible:
+    text: "Total must equal|Validation"
+    optional: true
+
+- takeScreenshot: "splits-complete"

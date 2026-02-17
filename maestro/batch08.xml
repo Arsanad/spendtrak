@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name="Test Suite" device="R9HT40F14JA" tests="1" failures="0" time="136.0">
+    <testcase id="batch-08-settings" name="batch-08-settings" classname="batch-08-settings" time="136.0" status="SUCCESS">
+      <properties/>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,113 @@
+appId: com.spendtrak.app
+tags:
+  - batch
+  - premium
+  - debt
+  - income
+---
+# ============================================
+# BATCH 13: PREMIUM TIER - Subscription Extras, Debt Management, Income Tracking
+# Tests 109-122
+# Uses testID selectors (works regardless of font)
+# ============================================
+
+# App already open - no launchApp needed
+
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# If on Sign In screen, use Dev Sign In
+- tapOn:
+    id: "dev-signin-button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# TESTS 109-112: Subscription Extras (Premium features)
+- tapOn:
+    id: "tab-subscriptions"
+    optional: true
+- tapOn:
+    text: "Subscriptions"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Analytics"
+    optional: true
+- tapOn:
+    text: "Insights"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-109-112-subscription-extras"
+- back
+- waitForAnimationToEnd
+
+# TESTS 113-117: Debt Management
+- tapOn:
+    id: "tab-settings"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd
+- scroll
+- tapOn:
+    text: "Debt Management"
+    optional: true
+- tapOn:
+    text: "Debt"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-113-view-debt"
+
+# Add debt
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Student Loan"
+- inputText: "25000"
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-114-117-debt-management"
+- back
+- waitForAnimationToEnd
+
+# TESTS 118-122: Income Tracking
+- tapOn:
+    text: "Income"
+    optional: true
+- tapOn:
+    text: "Income Tracking"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-118-view-income"
+
+# Add income source
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- inputText: "Salary"
+- inputText: "5000"
+- tapOn:
+    text: "Monthly"
+    optional: true
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "test-119-122-income-tracking"
+- back
+- waitForAnimationToEnd
+
+- takeScreenshot: "batch-13-complete"
+

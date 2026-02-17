@@ -1,0 +1,43 @@
+appId: com.spendtrak.app
+name: Authentication Tests
+tags: [auth, critical]
+---
+
+# Test 1.1: App Launches
+- launchApp:
+    clearState: true
+- takeScreenshot: "01-app-launched"
+
+# Wait for content to load
+- waitForAnimationToEnd
+
+# Test 1.2: Look for Welcome content
+- assertVisible:
+    text: "track"
+    optional: true
+- assertVisible:
+    text: "money"
+    optional: true
+
+# Test 1.3: Get Started Button
+- assertVisible:
+    text: "Get Started"
+    optional: true
+
+# Test 1.4: Feature list items
+- assertVisible:
+    text: "email"
+    optional: true
+- assertVisible:
+    text: "receipt"
+    optional: true
+- assertVisible:
+    text: "AI"
+    optional: true
+
+# Test 1.5: Navigate to Sign In
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: "02-after-get-started"

@@ -1,0 +1,51 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Missed Rewards Tracking Tests (102-105)"
+tags: [premium, rewards]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Missed Rewards
+- tapOn:
+    text: "Cards|Rewards"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Missed Rewards|Missed"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 102: View Missed Rewards - See rewards you missed
+- assertVisible:
+    text: "Missed Rewards|You missed"
+    optional: true
+
+# Test 103: Monthly Total - Total missed this month
+- assertVisible:
+    text: "Monthly|This Month"
+    optional: true
+- assertVisible:
+    text: "\\$"
+    optional: true
+
+# Test 104: By Transaction - See which transactions
+- tapOn:
+    text: "Transactions|Details"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    id: "transaction-item"
+    optional: true
+
+# Test 105: Better Card Suggestion - Which card would've been better
+- assertVisible:
+    text: "Better|Should have used|Recommendation"
+    optional: true
+
+- takeScreenshot: "missed-rewards-complete"

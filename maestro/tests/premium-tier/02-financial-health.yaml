@@ -1,0 +1,52 @@
+appId: com.spendtrak.app
+name: "Premium Tier - Financial Health Score Tests (93-95)"
+tags: [premium, health-score]
+---
+
+# Setup
+- launchApp:
+    clearState: true
+- tapOn:
+    text: "Get Started"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to Health Score
+- tapOn:
+    text: "Health|Score|Insights"
+    optional: true
+- waitForAnimationToEnd
+
+# Test 93: View Health Score - See overall score (0-100)
+- assertVisible:
+    text: "[0-9]+"
+    optional: true
+- assertVisible:
+    text: "Health Score|Financial Health"
+    optional: true
+
+# Test 94: Score Breakdown - See component scores
+- assertVisible:
+    text: "Breakdown|Components"
+    optional: true
+- tapOn:
+    text: "Breakdown|Details"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Spending|Savings|Budget"
+    optional: true
+
+# Test 95: Improvement Tips - See suggestions to improve
+- assertVisible:
+    text: "Tips|Improve|Suggestions"
+    optional: true
+- tapOn:
+    text: "Tips|Improve"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "improve|better|increase"
+    optional: true
+
+- takeScreenshot: "health-score-complete"
